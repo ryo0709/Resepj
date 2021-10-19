@@ -17,6 +17,14 @@ class CreateShopsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('genre_id');
             $table->unsignedBigInteger('area_id');
+            $table->foreign('genre_id')
+            ->references('id')
+            ->on('genres')
+            ->onDelete('cascade');
+            $table->foreign('area_id')
+            ->references('id')
+            ->on('areas')
+            ->onDelete('cascade');
             $table->string('name');
             $table->string('image_url');
             $table->text('description');

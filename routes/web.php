@@ -3,6 +3,7 @@
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ReserveController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
@@ -32,15 +33,19 @@ Route::get('/', [ShopController::class, 'index'])->name('index');
 // Route::get('/relation ', [CategoryController::class, 'relation ']);
 Route::get('/detail/{shop_id}', [ShopController::class, 'detail'])->name('detail');
 Route::post('/reserve', [ReserveController::class, 'reserve']);
-Route::get('/done', function () {
-    return view('done');
-});
+
 Route::get('/search', [ShopController::class, 'search']);
 Route::get('/find', [ShopController::class, 'find']);
 
 Route::get('/liked', [LikeController::class, 'liked'])->name('liked');
+Route::post('/unlike', [LikeController::class, 'unlike'])->name('unlike');
 
-
+Route::get('/confirm/{shop_id}', [ReservationController::class, 'confirm'])->name('confirm');
+Route::post('/reservation', [ReservationController::class, 'reservation']);
+Route::post('/delete/{resevation_id}', [ReservationController::class, 'delete'])->name('delete');
+Route::get('/done', function () {
+    return view('done');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

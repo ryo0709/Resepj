@@ -99,24 +99,56 @@
 
 <script>
   $(function() {
-    let like = $('.like-toggle'); //like-toggleのついたiタグを取得し代入。
-    let likeShopId; //変数を宣言（なんでここで？）
-    let likeUserId; //変数を宣言（なんでここで？）
-    like.on('click', function() { //onはイベントハンドラー
+    let like = $('.like-toggle');
+    let likeShopId;
+    let likeUserId;
+    like.on('click', function() {
+      let $this = $(this);
+      likeShopId = $this.data('shop-id');
+      likeUserId = $this.data('user-id');
+      $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: '/liked',
+          method: 'get',
+          data: {
+            'shop_id': likeShopId,
+            'user_id': likeUserId
+          },
+        })
+        .done(function(data) {
+          $this.toggleClass('liked');
+        })
+        .fail(function() {
+          console.log('fail');
+        });
+    });
+  });
+</script>
+<script>
+  $(function() {
+    let search = $('.search'); //like-toggleのついたiタグを取得し代入。
+    search.on('click', function() { //onはイベントハンドラー
       let $this = $(this); //this=イベントの発火した要素＝iタグを代入
-      likeShopId = $this.data('shop-id'); //iタグに仕込んだdata-review-idの値を取得
-      likeUserId = $this.data('user-id'); //iタグに仕込んだdata-review-idの値を取得
       //ajax処理スタート
+      var name = $('input[name="name"]').val();
+      var area_id = $('input[name="area_id"]').val();
+      var genre_id = $('input[name="genre_id"]').val();
+
+      var data = {
+        'name': name,
+        'area_id': area_id,
+        'genre_id': genre_id,
+      };
+
       $.ajax({
           headers: { //HTTPヘッダ情報をヘッダ名と値のマップで記述
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }, //↑name属性がcsrf-tokenのmetaタグのcontent属性の値を取得
-          url: '/liked', //通信先アドレスで、このURLをあとでルートで設定します
+          url: '/search', //通信先アドレスで、このURLをあとでルートで設定します
           method: 'get', //HTTPメソッドの種別を指定します。1.9.0以前の場合はtype:を使用。
-          data: { //サーバーに送信するデータ
-            'shop_id': likeShopId,
-            'user_id': likeUserId //いいねされた投稿のidを送る
-          },
+          data: data
         })
         //通信成功した時の処理
         .done(function(data) {
@@ -136,6 +168,8 @@
 
 
 @section('content')
+ 
+
 
 <div class="wrap">
   @if (@isset($items))
@@ -167,7 +201,7 @@
           </span><!-- /.likes -->
           @endif
 
-         
+
         </div>
       </div>
     </div>
@@ -196,7 +230,10 @@
 
 
         <div class="like">
-          <button type="submit"><i class="fas fa-heart like-btn"></i></button>
+          <span class="likes">
+            <a href="/login"><i class="fas fa-heart like-toggle like-btn"></i> </a>
+            
+          </span><!-- /.likes -->
         </div>
       </div>
     </div>

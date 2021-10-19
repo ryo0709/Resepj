@@ -8,4 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Reservation extends Model
 {
     use HasFactory;
+    protected $fillable = ['user_id', 'shop_id', 'start_at','num_of_users',];
+
+    public function getReserve()
+    {
+        return 'ID' . $this->id . ':' . $this->num_of_users . optional($this->shop)->name;
+    }
+    public function getShopName()
+    {
+        return optional($this->shop)->name;
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+    public function shop()
+    {
+        return $this->belongsTo('App\Models\Shop');
+    }
 }

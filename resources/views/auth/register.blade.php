@@ -159,7 +159,7 @@
         <!-- Name -->
         <div style="display:flex;">
             <div class="profile-solid icon"></div>
-            <div class="input_wrap"><input class="input" type="text" name="name" required placeholder="Jane Doe" :value="{{old('name')}}" /></div>
+            <div class="input_wrap"><input class="input" type="text" name="name" required placeholder="user name" :value="{{old('name')}}" /></div>
         </div>
         <!-- Email Address -->
         <div style="display:flex;">

@@ -46,9 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Reserve');
     }
-    public function reserves()
+    public function reservations()
     {
-        return $this->hasMany('App\Models\Reserve');
+        return $this->hasMany('App\Models\reservation');
     }
      
     public  function shops() {

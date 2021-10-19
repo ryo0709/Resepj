@@ -144,10 +144,26 @@
       display: flex;
       margin-left: auto;
       text-align: left;
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 1px 1px 1px #BBB;
+      height: 40px;
+      align-items: center;
     }
 
     input {
-      width: 50px;
+      width: 150px;
+      background-color: white;
+      border: white;
+    }
+
+    select {
+      border: white;
+      border-right: solid 1px #BBBBBB;
+    }
+
+    .search_icon {
+      color: #BBBBBB;
     }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -212,16 +228,28 @@
         <h2>Rese</h2>
       </div>
     </div>
-    
-      <div class="search">
-      <form action="find" method="GET">
-            @csrf
-        <input type="text" name="name">
-        <input type="text" name="area_id">
-        <input type="submit">
 
+    <div class="search">
+      <form action="search" method="GET">
+        @csrf
+        <select name="area_id">
+          <option value="">All area</option>
+          <option value="1">東京都</option>
+          <option value="2">大阪府</option>
+          <option value="3">福岡県</option>
+        </select>
+        <select name="genre_id">
+          <option value="">All genre</option>
+          <option value="1">寿司</option>
+          <option value="2">焼肉</option>
+          <option value="3">居酒屋</option>
+          <option value="4">ラーメン</option>
+          <option value="5">イタリアン</option>
+        </select>
+        <i class="fas fa-search search_icon"></i>
+        <input type="text" name="name" placeholder="Search">
+        <input type="submit">
       </form>
- 
-  </div>
+    </div>
 
 </header>

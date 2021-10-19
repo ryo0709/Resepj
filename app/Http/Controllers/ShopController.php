@@ -24,32 +24,42 @@ class ShopController extends Controller
     {
         $user = Auth::user();
         $shop = Shop::find($id);
-        $param = ['shop' => $shop, 'user' => $user];
+
+        $date = null;
+        $time = null;
+        $num = null;
+
+        $param = [
+            'shop' => $shop,
+            'user' => $user,
+            'date' => $date,
+            'time' => $time,
+            'num' => $num,
+            ];
         return view('detail',$param);
     }
 
     public function search(Request $request)
     {
         $area_id = $request->input('area_id');
-        $categoly = $request->input('categoly');
-        $shop_name = $request->input('shop_name');
+        $genre_id = $request->input('genre_id');
+        $name = $request->input('name');
         // ジャンルに
         $query = Shop::query();
         if (!empty($area_id)) {
-            $query->where('area_id','=', "$area_id");
+            $query->where('area_id',"$area_id");
         }
-        if (!empty($categoly)) {
-            $query->where('categoly', 'LIKE', "%{$categoly}%");
+        if (!empty($genre_id)) {
+            $query->where('genre_id',"{$genre_id}");
         }
-        if (!empty($shop_name)) {
-            $query->where('shop_name', 'LIKE', "%{$shop_name}%");
+        if (!empty($name)) {
+            $query->where('name', 'LIKE', "%{$name}%");
+        }
+        $items = $query->get();
+        $user = Auth::user();
+        $param = ['items' => $items, 'user' => $user,];
 
-            $items = $query->get();
-            $user = Auth::user();
-            $param = ['items' => $items, 'user' => $user,];
-
-            return view('index', $param);
-        }
+        return view('index', $param);
     }
     public function find(Request $request) {
         $items = Shop::find($request->area_id)->get();

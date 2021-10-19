@@ -19,4 +19,8 @@ class Like extends Model
     {
         return $this->belongsTo('App\Models\Shop');
     }
+    public function getLike()
+    {
+        return optional($this->like)->shop_id;
+    }
 }

@@ -21,10 +21,11 @@ class LikeController extends Controller
             Like::where('shop_id', $shop_id)->where('user_id', $user_id)->delete();
         }
     }
-    public function unlike($shop_id,$user_id)
+    public function unlike(Request $request)
     {
-        $like = Like::where('shop_id', $shop_id)->where('user_id', $user_id)->first();
-        $like->delete();
-        return redirect('/');
+        $user_id = $request->user_id; //1.ログインユーザーのid取得
+        $shop_id = $request->shop_id; //2.投稿idの取得
+        Like::where('shop_id', $shop_id)->where('user_id', $user_id)->delete();
+        return redirect('/mypage');
     }
 }

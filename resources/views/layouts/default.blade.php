@@ -4,8 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
   <title>@yield('title')</title>
+  <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
+
 
   <style>
     body {
@@ -18,14 +21,14 @@
 </head>
 
 <body>
-@include('layouts.header')
-  <h1>@yield('title')</h1>
+  @include('layouts.header')
+  @yield('content')
+
   <div class="content">
-    
-    @yield('content')
+
 
   </div>
-  
+
 </body>
 
 </html>

@@ -38,7 +38,7 @@
 <div class="section">
   <p>会員登録ありがとうございます</p>
   <div class="btn_wrap">
-    <a class="btn" href="/auth">ログインする</a>
+    <a class="btn" href="/login">ログインする</a>
   </div>
 </div>
 @endsection
