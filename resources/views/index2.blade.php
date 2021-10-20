@@ -63,6 +63,42 @@
     });
   </script>
 </body>
+<script>
+  $(function() {
+    let search = $('.search'); //like-toggleのついたiタグを取得し代入。
+    search.on('click', function() { //onはイベントハンドラー
+      let $this = $(this); //this=イベントの発火した要素＝iタグを代入
+      //ajax処理スタート
+      var name = $('input[name="name"]').val();
+      var area_id = $('input[name="area_id"]').val();
+      var genre_id = $('input[name="genre_id"]').val();
+
+      var data = {
+        'name': name,
+        'area_id': area_id,
+        'genre_id': genre_id,
+      };
+
+      $.ajax({
+          headers: { //HTTPヘッダ情報をヘッダ名と値のマップで記述
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }, //↑name属性がcsrf-tokenのmetaタグのcontent属性の値を取得
+          url: '/search', //通信先アドレスで、このURLをあとでルートで設定します
+          method: 'get', //HTTPメソッドの種別を指定します。1.9.0以前の場合はtype:を使用。
+          data: data
+        })
+        //通信成功した時の処理
+        .done(function(data) {
+          $this.toggleClass('liked'); //likedクラスのON/OFF切り替え。
+          $this.next('.like-counter').html(data.review_likes_count);
+        })
+        //通信失敗した時の処理
+        .fail(function() {
+          console.log('fail');
+        });
+    });
+  });
+</script>
 
 
 </html>

@@ -31,9 +31,9 @@ class Shop extends Model
     {
         return $this->belongsTo('App\Models\Genre');
     }
-    public function reserves()
+    public function reservation()
     {
-        return $this->hasMany('App\Models\Reserve');
+        return $this->hasMany('App\Models\Reservation');
     }
     public function likes()
     {

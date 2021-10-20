@@ -42,20 +42,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function reserve()
-    {
-        return $this->hasOne('App\Models\Reserve');
-    }
+
     public function reservations()
     {
-        return $this->hasMany('App\Models\reservation');
+        return $this->hasMany('App\Models\Reservation');
     }
-     
+
     public  function shops() {
-        return $this->hasMany('App\Models\shop');
+        return $this->hasMany('App\Models\Shop');
     }
     public  function likes() {
-        return $this->hasMany('App\Models\like');
+        return $this->hasMany('App\Models\Like');
     }
 
 

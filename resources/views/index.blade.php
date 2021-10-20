@@ -126,49 +126,65 @@
     });
   });
 </script>
+
+
+
+
 <script>
   $(function() {
-    let search = $('.search'); //like-toggleのついたiタグを取得し代入。
-    search.on('click', function() { //onはイベントハンドラー
-      let $this = $(this); //this=イベントの発火した要素＝iタグを代入
-      //ajax処理スタート
-      var name = $('input[name="name"]').val();
-      var area_id = $('input[name="area_id"]').val();
-      var genre_id = $('input[name="genre_id"]').val();
-
-      var data = {
-        'name': name,
-        'area_id': area_id,
-        'genre_id': genre_id,
-      };
-
+    let search = $('.search');
+    let areaId;
+    search.on('click', function() {
+      let $this = $(this);
+      areaId = $('select[name="area_id"]').val();
       $.ajax({
-          headers: { //HTTPヘッダ情報をヘッダ名と値のマップで記述
+          headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }, //↑name属性がcsrf-tokenのmetaタグのcontent属性の値を取得
-          url: '/search', //通信先アドレスで、このURLをあとでルートで設定します
-          method: 'get', //HTTPメソッドの種別を指定します。1.9.0以前の場合はtype:を使用。
-          data: data
+          },
+          url: '/search',
+          method: 'get',
+          data: {
+            'area_id': areaId,
+          },
         })
-        //通信成功した時の処理
         .done(function(data) {
-          $this.toggleClass('liked'); //likedクラスのON/OFF切り替え。
-          $this.next('.like-counter').html(data.review_likes_count);
+          $this.toggleClass('liked');
         })
-        //通信失敗した時の処理
         .fail(function() {
           console.log('fail');
         });
     });
   });
 </script>
+
 @section('title',)
 
 @if (Auth::check())
 
 
 @section('content')
- 
+<div class="search">
+  <form action="search" method="GET">
+    @csrf
+    <select name="area_id" class="search">
+      <option value="">All area</option>
+      <option value="1">東京都</option>
+      <option value="2">大阪府</option>
+      <option value="3">福岡県</option>
+    </select>
+    <select name="genre_id">
+      <option value="">All genre</option>
+      <option value="1">寿司</option>
+      <option value="2">焼肉</option>
+      <option value="3">居酒屋</option>
+      <option value="4">ラーメン</option>
+      <option value="5">イタリアン</option>
+    </select>
+    <i class="fas fa-search search_icon"></i>
+    <input type="text" name="name" placeholder="Search">
+    <input type="submit">
+  </form>
+</div>
 
 
 <div class="wrap">
@@ -232,7 +248,7 @@
         <div class="like">
           <span class="likes">
             <a href="/login"><i class="fas fa-heart like-toggle like-btn"></i> </a>
-            
+
           </span><!-- /.likes -->
         </div>
       </div>
