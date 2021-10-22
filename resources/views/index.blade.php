@@ -126,67 +126,12 @@
     });
   });
 </script>
-
-
-
-
-<script>
-  $(function() {
-    let search = $('.search');
-    let areaId;
-    search.on('click', function() {
-      let $this = $(this);
-      areaId = $('select[name="area_id"]').val();
-      $.ajax({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          url: '/search',
-          method: 'get',
-          data: {
-            'area_id': areaId,
-          },
-        })
-        .done(function(data) {
-          $this.toggleClass('liked');
-        })
-        .fail(function() {
-          console.log('fail');
-        });
-    });
-  });
-</script>
-
 @section('title',)
 
 @if (Auth::check())
 
 
 @section('content')
-<div class="search">
-  <form action="search" method="GET">
-    @csrf
-    <select name="area_id" class="search">
-      <option value="">All area</option>
-      <option value="1">東京都</option>
-      <option value="2">大阪府</option>
-      <option value="3">福岡県</option>
-    </select>
-    <select name="genre_id">
-      <option value="">All genre</option>
-      <option value="1">寿司</option>
-      <option value="2">焼肉</option>
-      <option value="3">居酒屋</option>
-      <option value="4">ラーメン</option>
-      <option value="5">イタリアン</option>
-    </select>
-    <i class="fas fa-search search_icon"></i>
-    <input type="text" name="name" placeholder="Search">
-    <input type="submit">
-  </form>
-</div>
-
-
 <div class="wrap">
   @if (@isset($items))
   @foreach ($items as $item)
@@ -204,8 +149,6 @@
       <div class="card_item">
         <button class="btn"><a href="{{route('detail', ['shop_id' => $item->id,]) }}" style="color:white;">詳しく見る</a></button>
         <div class="heart icon"></div>
-
-
         <div class="like">
           @if (!$item->isLikedBy(Auth::user()))
           <span class="likes">
@@ -216,8 +159,6 @@
             <i class="fas fa-heart like-toggle liked like-btn" data-shop-id="{{ $item->id }}" data-user-id="{{ $user->id }}"></i>
           </span><!-- /.likes -->
           @endif
-
-
         </div>
       </div>
     </div>
@@ -243,12 +184,9 @@
       <div class="card_item">
         <button class="btn"><a href="{{ route('detail', ['shop_id' => $item->id,]) }}" style="color:white;">詳しく見る</a></button>
         <div class="heart icon"></div>
-
-
         <div class="like">
           <span class="likes">
             <a href="/login"><i class="fas fa-heart like-toggle like-btn"></i> </a>
-
           </span><!-- /.likes -->
         </div>
       </div>

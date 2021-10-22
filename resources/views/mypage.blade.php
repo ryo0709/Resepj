@@ -177,22 +177,22 @@
 <script>
   $(function() {
     let like = $('.like-toggle'); //like-toggleのついたiタグを取得し代入。
-    let likeShopId; //変数を宣言（なんでここで？）
-    let likeUserId; //変数を宣言（なんでここで？）
+    let likeShopId;
+    let likeUserId;
     like.on('click', function() { //onはイベントハンドラー
       let $this = $(this); //this=イベントの発火した要素＝iタグを代入
-      likeShopId = $this.data('shop-id'); //iタグに仕込んだdata-review-idの値を取得
-      likeUserId = $this.data('user-id'); //iタグに仕込んだdata-review-idの値を取得
+      likeShopId = $this.data('shop-id');
+      likeUserId = $this.data('user-id');
       //ajax処理スタート
       $.ajax({
           headers: { //HTTPヘッダ情報をヘッダ名と値のマップで記述
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }, //↑name属性がcsrf-tokenのmetaタグのcontent属性の値を取得
-          url: '/liked', //通信先アドレスで、このURLをあとでルートで設定します
-          method: 'get', //HTTPメソッドの種別を指定します。1.9.0以前の場合はtype:を使用。
+          url: '/liked',
+          method: 'get',
           data: { //サーバーに送信するデータ
             'shop_id': likeShopId,
-            'user_id': likeUserId //いいねされた投稿のidを送る
+            'user_id': likeUserId
           },
         })
         //通信成功した時の処理

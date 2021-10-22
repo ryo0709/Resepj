@@ -232,13 +232,13 @@
     <div class="search">
       <form action="search" method="GET">
         @csrf
-        <select name="area_id">
+        <select name="area_id" id="area">
           <option value="">All area</option>
           <option value="1">東京都</option>
           <option value="2">大阪府</option>
           <option value="3">福岡県</option>
         </select>
-        <select name="genre_id">
+        <select name="genre_id" id="genre">
           <option value="">All genre</option>
           <option value="1">寿司</option>
           <option value="2">焼肉</option>
@@ -247,9 +247,60 @@
           <option value="5">イタリアン</option>
         </select>
         <i class="fas fa-search search_icon"></i>
-        <input type="text" name="name" placeholder="Search">
+        <input type="text" name="name" placeholder="Search" id="name">
         <input type="submit">
       </form>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+      $('#area').change(function() {
+        var area_id = $('#area').val();
+        $.ajax({
+            url: '/area_search',
+            method: 'get',
+            async: true,
+            data: {
+              'area_id': area_id,
+            },
+          })
+          .done(function(json) {
+            alert('ajax成功');
+          }).fail(function(json) {
+            alert('ajax失敗');
+          });
+      });
+      $('#genre').change(function() {
+        var genre_id = $('#genre').val();
+        $.ajax({
+            url: '/genre_search',
+            method: 'get',
+            async: true,
+            data: {
+              'genre_id': genre_id,
+            },
+          })
+          .done(function(json) {
+            alert('ajax成功');
+          }).fail(function(json) {
+            alert('ajax失敗');
+          });
+      });
+      $('#name').change(function() {
+        var name = $('#name').val();
+        $.ajax({
+            url: '/name_search',
+            method: 'get',
+            async: true,
+            data: {
+              'name': name,
+            },
+          })
+          .done(function(json) {
+            alert('ajax成功');
+          }).fail(function(json) {
+            alert('ajax失敗');
+          });
+      });
+    </script>
 
 </header>

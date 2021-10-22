@@ -208,6 +208,7 @@
             <input type="submit" value="送信">
           </div>
         </form>
+        
         <div class="reservation_detail">
           <div class="reservation_detail_wrap">
             <div class="item_wrap">

@@ -24,11 +24,9 @@ class ShopController extends Controller
     {
         $user = Auth::user();
         $shop = Shop::find($id);
-
         $date = null;
         $time = null;
         $num = null;
-
         $param = [
             'shop' => $shop,
             'user' => $user,
@@ -39,35 +37,34 @@ class ShopController extends Controller
         return view('detail',$param);
     }
 
-    public function search(Request $request)
+    public function area_search(Request $request)
     {
-        $area_id = $request->input('area_id');
-        $genre_id = $request->input('genre_id');
-        $name = $request->input('name');
-        // ジャンルに
+        $area_id = $request->area_id;
         $query = Shop::query();
-        if (!empty($area_id)) {
-            $query->where('area_id',"$area_id");
-        }
-        if (!empty($genre_id)) {
-            $query->where('genre_id',"{$genre_id}");
-        }
-        if (!empty($name)) {
-            $query->where('name', 'LIKE', "%{$name}%");
-        }
+        $query->where('area_id',"$area_id");
         $items = $query->get();
         $user = Auth::user();
         $param = ['items' => $items, 'user' => $user,];
-
         return view('index', $param);
     }
-    public function find(Request $request) {
-        $items = Shop::find($request->area_id)->get();
+    public function genre_search(Request $request)
+    {
+        $genre_id = $request->genre_id;
+        $query = Shop::query();
+        $query->where('genre_id',"$genre_id");
+        $items = $query->get();
         $user = Auth::user();
-        $param = [
-            'user' => $user,
-            'items' => $items
-        ];
+        $param = ['items' => $items, 'user' => $user,];
+        return view('index', $param);
+    }
+    public function name_search(Request $request)
+    {
+        $name = $request->name;
+        $query = Shop::query();
+        $query->where('name', 'LIKE', "%{$name}%");
+        $items = $query->get();
+        $user = Auth::user();
+        $param = ['items' => $items, 'user' => $user,];
         return view('index', $param);
     }
 }

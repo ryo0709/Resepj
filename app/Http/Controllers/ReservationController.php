@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
-    public function confirm(Request $request,$id )
+    public function confirm(Request $request, $id)
     {
         $date = $request->date;
         $time = $request->time;
@@ -23,7 +23,7 @@ class ReservationController extends Controller
             'time' => $time,
             'num' => $num,
         ];
-        return view('detail',$param);
+        return view('detail', $param);
     }
     public function reservation(Request $request)
     {

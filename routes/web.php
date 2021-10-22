@@ -34,8 +34,9 @@ Route::get('/', [ShopController::class, 'index'])->name('index');
 Route::get('/detail/{shop_id}', [ShopController::class, 'detail'])->name('detail');
 Route::post('/reserve', [ReserveController::class, 'reserve']);
 
-Route::get('/search', [ShopController::class, 'search']);
-Route::get('/find', [ShopController::class, 'find']);
+Route::get('/area_search', [ShopController::class, 'area_search']);
+Route::get('/genre_search', [ShopController::class, 'genre_search']);
+Route::get('/name_search', [ShopController::class, 'name_search']);
 
 Route::get('/liked', [LikeController::class, 'liked'])->name('liked');
 Route::post('/unlike', [LikeController::class, 'unlike'])->name('unlike');
