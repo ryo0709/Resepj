@@ -230,16 +230,16 @@
     </div>
 
     <div class="search">
-      <form action="search" method="GET">
+      <form action="area_search" method="GET">
         @csrf
         <select name="area_id" id="area">
-          <option value="">All area</option>
+          <option value="0">All area</option>
           <option value="1">東京都</option>
           <option value="2">大阪府</option>
           <option value="3">福岡県</option>
         </select>
         <select name="genre_id" id="genre">
-          <option value="">All genre</option>
+          <option value="0">All genre</option>
           <option value="1">寿司</option>
           <option value="2">焼肉</option>
           <option value="3">居酒屋</option>

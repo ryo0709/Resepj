@@ -26,12 +26,14 @@ class ShopController extends Controller
         $shop = Shop::find($id);
         $date = null;
         $time = null;
+        $datetime = null;
         $num = null;
         $param = [
             'shop' => $shop,
             'user' => $user,
             'date' => $date,
             'time' => $time,
+            'datetime' => $datetime,
             'num' => $num,
             ];
         return view('detail',$param);
@@ -40,22 +42,36 @@ class ShopController extends Controller
     public function area_search(Request $request)
     {
         $area_id = $request->area_id;
-        $query = Shop::query();
-        $query->where('area_id',"$area_id");
-        $items = $query->get();
-        $user = Auth::user();
-        $param = ['items' => $items, 'user' => $user,];
-        return view('index', $param);
+        if($area_id === "0") {
+            $items = Shop::all();
+            $user = Auth::user();
+            $param = ['items' => $items, 'user' => $user,];
+            return view('index', $param);
+        } else {
+            $query = Shop::query();
+            $query->where('area_id',"$area_id");
+            $items = $query->get();
+            $user = Auth::user();
+            $param = ['items' => $items, 'user' => $user,];
+            return view('index', $param);
+        }
     }
     public function genre_search(Request $request)
     {
         $genre_id = $request->genre_id;
+        if ($genre_id === "0") {
+            $items = Shop::all();
+            $user = Auth::user();
+            $param = ['items' => $items, 'user' => $user,];
+            return view('index', $param);
+        } else {
         $query = Shop::query();
         $query->where('genre_id',"$genre_id");
         $items = $query->get();
         $user = Auth::user();
         $param = ['items' => $items, 'user' => $user,];
         return view('index', $param);
+        }
     }
     public function name_search(Request $request)
     {

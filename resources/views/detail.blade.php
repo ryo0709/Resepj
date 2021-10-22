@@ -153,14 +153,6 @@
     padding: 20px 0;
   }
 </style>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script>
-
-
-</script>
-
-
-
 @section('title')
 
 @section('content')
@@ -185,70 +177,70 @@
     <div class="reservation">
       <div class="reservation_wrap">
         <h2 class="reservation_title">予約</h2>
-        <form action="{{route('confirm', ['shop_id' => $shop->id,]) }}" method="get">
+        <form action="/reservation" method="post">
           @csrf
           <div>
+            <input name="user_id" value="{{$user->id}}" type="hidden">
+            <input name="shop_id" value="{{$shop->id}}" type="hidden">
             <div>
-              <input type="date" name="date" value="{{ $date }}" data-date="{{ $date }}" class="reservation_input">
+              <input type="date" name="date" value="{{ $date }}" id="date" class="reservation_input">
             </div>
             <div>
-              <select name="time" value="{{ $time }}" data-time="{{ $time }}">
+              <select name="time" value="{{ $time }}" id="time">
                 <option value="17:00">17:00</option>
                 <option value="17:30">17:30</option>
                 <option value="18:00">18:00</option>
               </select>
             </div>
             <div>
-              <select name="num" value="{{ $num }}" data-num="{{ $num }}">
+              <select name="num" value="{{ $num }}" id="num">
                 <option value="1">1人</option>
                 <option value="2">2人</option>
                 <option value="3">3人</option>
               </select>
             </div>
-            <input type="submit" value="送信">
           </div>
-        </form>
-        
-        <div class="reservation_detail">
-          <div class="reservation_detail_wrap">
-            <div class="item_wrap">
-              <p class="item">Shop</p>
-              <p style="color:white;">{{$shop->name}}</p>
+          <div class="reservation_detail">
+            <div class="reservation_detail_wrap">
+              <div class="item_wrap">
+                <p class="item">Shop</p>
+                <p style="color:white;">{{$shop->name}}</p>
+              </div>
+              <div class="item_wrap">
+                <p class="item">Date</p>
+                <p style="color:white;" id="pDate"></p>
+              </div>
+              <div class="item_wrap">
+                <p class="item">Time</p>
+                <p style="color:white;" id="pTime"></p>
+              </div>
+              <div class="item_wrap">
+                <p class="item">Number</p>
+                <p style="color:white;" id="pNum"></p>
+                <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                <script>
+                  $('#date').change(function() {
+                    var date = $('#date').val();
+                    $('#pDate').text(date);
+                  });
+                  $('#time').change(function() {
+                    var time = $('#time').val();
+                    $('#pTime').text(time);
+                  });
+                  $('#num').change(function() {
+                    var num = $('#num').val();
+                    $('#pNum').text(num, "人");
+                  });
+                </script>
+              </div>
             </div>
-            <div class="item_wrap">
-              <p class="item">Date</p>
-              <p style="color:white;">{{$date}}</p>
-            </div>
-            <div class="item_wrap">
-              <p class="item">Time</p>
-              <p style="color:white;">{{$time}}</p>
-            </div>
-            <div class="item_wrap">
-              <p class="item">Number</p>
-              <p style="color:white;">{{$num}}@if($num!== null){{'人'}}</p>
-              @else
-              @endif
-            </div>
-          </div>
-        </div>
-
-        <form action="/reservation" method="post">
-          <div>
-            @csrf
-            <input name="user_id" value="{{$user->id}}" type="hidden">
-            <input name="shop_id" value="{{$shop->id}}" type="hidden">
-            <input name="start_at" value="{{$date.'T'.$time}}" type="hidden">
-            <input name="num_of_users" value="{{$num}}" type="hidden">
-
           </div>
           <div class="reservation_btn_wrap">
             <input type="submit" value="予約する" class="reservation_btn">
           </div>
         </form>
       </div><!-- resavation_wrap -->
-
     </div><!-- resavation -->
-
   </div><!-- warap -->
 </div><!-- content -->
 
