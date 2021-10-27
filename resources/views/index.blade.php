@@ -127,12 +127,11 @@
   });
 </script>
 @section('title',)
-
 @if (Auth::check())
-
-
 @section('content')
+
 <div class="wrap">
+  
   @if (@isset($items))
   @foreach ($items as $item)
   <div class="card">
@@ -195,10 +194,5 @@
   @endforeach
   @endif
 </div>
-
-
-
 @endif
-
-
 @endsection

@@ -11,6 +11,15 @@ class ReservationController extends Controller
 {
     public function reservation(Request $request)
     {
+        $validate_rule = [
+            'user_id' => 'required',
+            'shop_id' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+            'num' => 'required',
+        ];
+        $this->validate($request, $validate_rule);
+
         $user_id = $request->user_id;
         $shop_id = $request->shop_id;
         $date = $request->date;

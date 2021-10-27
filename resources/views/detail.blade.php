@@ -23,7 +23,6 @@
 
   .card {
     width: 50%;
-    cursor: pointer;
     border: 1px solid #e9eaea;
     border-radius: 3px;
     padding-right: 5%;
@@ -151,13 +150,13 @@
     font-weight: bold;
     font-size: 16px;
     padding: 20px 0;
+    cursor: pointer;
   }
 </style>
 @section('title')
 
 @section('content')
 
-@if (Auth::check())
 
 <div class="content">
   <div class="wrap">
@@ -180,20 +179,34 @@
         <form action="/reservation" method="post">
           @csrf
           <div>
+            @if (Auth::check())
             <input name="user_id" value="{{$user->id}}" type="hidden">
+            @else
+            @endif
             <input name="shop_id" value="{{$shop->id}}" type="hidden">
             <div>
+              @error('date')
+              <p style="color:red;">{{$message}}</p>
+              @enderror
               <input type="date" name="date" value="{{ $date }}" id="date" class="reservation_input">
             </div>
             <div>
+              @error('time')
+              <p style="color:red;">{{$message}}</p>
+              @enderror
               <select name="time" value="{{ $time }}" id="time">
+                <option value=""></option>
                 <option value="17:00">17:00</option>
                 <option value="17:30">17:30</option>
                 <option value="18:00">18:00</option>
               </select>
             </div>
             <div>
+              @error('num')
+              <p style="color:red;">{{$message}}</p>
+              @enderror
               <select name="num" value="{{ $num }}" id="num">
+                <option value=""></option>
                 <option value="1">1人</option>
                 <option value="2">2人</option>
                 <option value="3">3人</option>
@@ -229,103 +242,28 @@
                   });
                   $('#num').change(function() {
                     var num = $('#num').val();
-                    $('#pNum').text(num, "人");
+                    $('#pNum').text(num + '人');
                   });
                 </script>
               </div>
             </div>
           </div>
-          <div class="reservation_btn_wrap">
-            <input type="submit" value="予約する" class="reservation_btn">
-          </div>
-        </form>
+
       </div><!-- resavation_wrap -->
+      <div class="reservation_btn_wrap" style="border-top:solid 1px #BBB;border-radius:0 0 5px 5px;">
+        @if (Auth::check())
+
+        <label for="reservation"><input type="submit" value="予約する" class="reservation_btn" id="reservation" style="width:100%;"></label>
+        @else
+        <p>ログインしていません。（<a href="/login" style="color:white;">ログイン</a>｜
+          <a href="/register" style="color:white;line-height:30px;padding-bottom:20px;display:inline-block;">登録</a>）
+        </p>
+        @endif
+      </div>
+      </form>
     </div><!-- resavation -->
   </div><!-- warap -->
 </div><!-- content -->
 
-@else
 
-<div class="content">
-  <div class="wrap">
-    <div class="card">
-      <div class="head">
-        <div class="btn-warp"><a class="btn" href="/">></a></div>
-        <h2 class="title">{{$shop->name}}</h2>
-      </div>
-      <div class="content-img">
-        <img src="{{$shop->image_url}}" />
-      </div>
-      <div class="text-box">
-        <p class="date">{{$shop->getArea()}} {{$shop->getGenre()}}</p>
-        <p>{{$shop->description}}</p>
-      </div>
-    </div><!-- card -->
-    <div class="reservation">
-      <div class="reservation_wrap">
-        <h2 class="reservation_title">予約</h2>
-        <form action="{{route('confirm', ['shop_id' => $shop->id,]) }}" method="get">
-          @csrf
-          <div>
-            <div>
-              <input type="date" name="date" value="{{ $date }}" data-date="{{ $date }}" class="reservation_input">
-            </div>
-            <div>
-              <select name="time" value="{{ $time }}" data-time="{{ $time }}">
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-              </select>
-            </div>
-            <div>
-              <select name="num" value="{{ $num }}" data-num="{{ $num }}">
-                <option value="1">1人</option>
-                <option value="2">2人</option>
-                <option value="3">3人</option>
-              </select>
-            </div>
-            <input type="submit" value="送信">
-          </div>
-        </form>
-        <div class="reservation_detail">
-          <div class="reservation_detail_wrap">
-            <div class="item_wrap">
-              <p class="item">Shop</p>
-              <p style="color:white;">{{$shop->name}}</p>
-            </div>
-            <div class="item_wrap">
-              <p class="item">Date</p>
-              <p style="color:white;">{{$date}}</p>
-            </div>
-            <div class="item_wrap">
-              <p class="item">Time</p>
-              <p style="color:white;">{{$time}}</p>
-            </div>
-            <div class="item_wrap">
-              <p class="item">Number</p>
-              <p style="color:white;">{{$num}}@if($num!== null){{'人'}}</p>
-              @else
-              @endif
-            </div>
-          </div>
-        </div>
-
-        <form action="/reservation" method="post">
-          <div>
-            @csrf
-
-          </div>
-          <div class="reservation_btn_wrap">
-            <p>ログインしていません。（<a href="/login" style="color:white;">ログイン</a>｜
-              <a href="/register" style="color:white;">登録</a>）
-            </p>
-          </div>
-        </form>
-      </div><!-- resavation_wrap -->
-
-    </div><!-- resavation -->
-
-  </div><!-- warap -->
-</div><!-- content -->
-@endif
 @endsection

@@ -191,7 +191,6 @@
   <!-- ナビメニュー -->
   <nav class="NavMenu">
     @if (Auth::check())
-    <p>ログイン中ユーザー: {{$user->name . ' メール' . $user->email . ''}}</p>
     <div class="menu">
       <ul>
         <li><a href="/">Home</a></li>
@@ -248,7 +247,6 @@
         </select>
         <i class="fas fa-search search_icon"></i>
         <input type="text" name="name" placeholder="Search" id="name">
-        <input type="submit">
       </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -264,7 +262,30 @@
             },
           })
           .done(function(json) {
-            alert('ajax成功');
+            $('body').empty();
+            $('body').append(json)
+            // alert('ajax成功');
+            // $('.wrap').empty();
+
+            // console.log(data);
+            // let html = '';
+            // for (var i = 0; i > data.length; i++) {
+            //   console.log(data);
+            //   $.each(data, function(index, value) {
+            //     let name = value.name;
+            //     html = `
+            //       <div style="background-color:red;" class="card">
+            //       <h2 class="title">${name}</h2>
+            //       `
+            //   });
+            // }
+            // $('.wrap').append(html)
+            // console.log(JSON.stringify(items));
+            // var json = JSON.parse(JSON.stringify(data));
+            // $obj = json_decode($json, false);
+            // for (let i = 0; i < 9; i++) {
+            //   str = str + i;
+            // }
           }).fail(function(json) {
             alert('ajax失敗');
           });
@@ -280,7 +301,8 @@
             },
           })
           .done(function(json) {
-            alert('ajax成功');
+            $('body').empty();
+            $('body').append(json)
           }).fail(function(json) {
             alert('ajax失敗');
           });
@@ -296,7 +318,8 @@
             },
           })
           .done(function(json) {
-            alert('ajax成功');
+            $('body').empty();
+            $('body').append(json)
           }).fail(function(json) {
             alert('ajax失敗');
           });
