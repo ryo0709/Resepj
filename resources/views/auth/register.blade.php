@@ -13,6 +13,7 @@
         border-top: none;
         border-radius: 0px;
         display: block;
+        cursor: pointer;
     }
 
     .input_wrap {
@@ -135,6 +136,7 @@
         width: 60px;
         border-radius: 5px;
         padding: 5px;
+        cursor: pointer;
     }
 
     .btn_wrap {

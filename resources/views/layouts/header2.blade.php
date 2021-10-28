@@ -155,11 +155,13 @@
       width: 150px;
       background-color: white;
       border: white;
+      cursor: pointer;
     }
 
     select {
       border: white;
       border-right: solid 1px #BBBBBB;
+      cursor: pointer;
     }
 
     .search_icon {
@@ -232,12 +234,14 @@
       <form action="area_search" method="GET">
         @csrf
         <select name="area_id" id="area">
+          <option value="" style="display:none;">All area</option>
           <option value="0">All area</option>
           <option value="1">東京都</option>
           <option value="2">大阪府</option>
           <option value="3">福岡県</option>
         </select>
         <select name="genre_id" id="genre">
+          <option value="" style="display:none;">All genre</option>
           <option value="0">All genre</option>
           <option value="1">寿司</option>
           <option value="2">焼肉</option>

@@ -22,7 +22,6 @@
 
   .card {
     width: 20%;
-    cursor: pointer;
     margin-right: 10px;
     margin-bottom: 10px;
     border: solid 1px #BBBBBB;
@@ -58,6 +57,8 @@
     color: white;
     border-radius: 5px;
     margin-top: 5px;
+    font-weight: 400;
+    padding: 4px 8px;
   }
 
   .btn_wrap {
@@ -146,7 +147,7 @@
         <p class="date">{{$item->getArea()}} {{$item->getGenre()}}</p>
       </div>
       <div class="card_item">
-        <button class="btn"><a href="{{route('detail', ['shop_id' => $item->id,]) }}" style="color:white;">詳しく見る</a></button>
+        <a class="btn" href="{{route('detail', ['shop_id' => $item->id,]) }}" style="color:white;">詳しく見る</a>
         <div class="heart icon"></div>
         <div class="like">
           @if (!$item->isLikedBy(Auth::user()))
@@ -181,7 +182,7 @@
         <p class="date">{{$item->getArea()}} {{$item->getGenre()}}</p>
       </div>
       <div class="card_item">
-        <button class="btn"><a href="{{ route('detail', ['shop_id' => $item->id,]) }}" style="color:white;">詳しく見る</a></button>
+        <a class="btn" href="{{ route('detail', ['shop_id' => $item->id,]) }}" style="color:white;">詳しく見る</a>
         <div class="heart icon"></div>
         <div class="like">
           <span class="likes">

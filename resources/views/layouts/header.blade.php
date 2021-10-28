@@ -5,6 +5,26 @@
       color: #333333;
     }
 
+    .logout {
+      color: #333333;
+      background-color: white;
+      border: 0px white;
+      display: block;
+      padding-top: 20px;
+    }
+
+    .logout_text {
+      color: #0033FF;
+      padding: 15px 0;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    label {
+      display: block;
+    }
+
     /*ナビのスタイル*/
     nav.NavMenu {
       position: fixed;
@@ -137,8 +157,6 @@
       color: #0033FF;
       font-size: 36px;
     }
-
-     
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
@@ -163,43 +181,45 @@
     });
   </script>
   <!-- ナビメニュー -->
-    <nav class="NavMenu">
-      @if (Auth::check())
-      <div class="menu">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/mypage">Mypage</a></li>
-          <li>
-            <form method="POST" action="{{ route('logout') }}">
-              @csrf
-              <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+  <nav class="NavMenu">
+    @if (Auth::check())
+    <div class="menu">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/mypage">Mypage</a></li>
+        <li>
+          <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <label for="logout" class="logout_text">logout<input type="submit" value="" class="logout" id="logout"></label>
+
+            <!-- <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                 {{ __('logout') }}
               </x-dropdown-link>
-            </form>
-          </li>
-        </ul>
-      </div>
-      @else
-      <div class="menu">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/register">Registration</a></li>
-          <li><a href="{{ route('login') }}">Login</a></li>
-        </ul>
-        @endif
-      </div>
-    </nav>
+            </form> -->
+        </li>
+      </ul>
+    </div>
+    @else
+    <div class="menu">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/register">Registration</a></li>
+        <li><a href="{{ route('login') }}">Login</a></li>
+      </ul>
+      @endif
+    </div>
+  </nav>
 
-    <!-- メニュー -->
-    <div class="flex">
-      <div class="Toggle">
-        <span class="toggle-span span span1"></span>
-        <span class="span span2"></span>
-        <span class="span span3"></span>
-        <div class="header_title">
-          <h2>Rese</h2>
-        </div>
+  <!-- メニュー -->
+  <div class="flex">
+    <div class="Toggle">
+      <span class="toggle-span span span1"></span>
+      <span class="span span2"></span>
+      <span class="span span3"></span>
+      <div class="header_title">
+        <h2>Rese</h2>
       </div>
     </div>
+  </div>
 </header>

@@ -17,8 +17,6 @@ class ShopController extends Controller
         $shops = Shop::all();
         $param = ['items' => $items, 'user' => $user, 'shops' => $shops];
         return view('index', $param);
-
-         
     }
     public function detail($id)
     {
@@ -35,21 +33,22 @@ class ShopController extends Controller
             'time' => $time,
             'datetime' => $datetime,
             'num' => $num,
-            ];
-        return view('detail',$param);
+        ];
+        return view('detail', $param);
     }
 
     public function area_search(Request $request)
     {
         $area_id = $request->area_id;
-        if($area_id === "0") {
-            $items = Shop::all();
+        if ($area_id === "0") {
             $user = Auth::user();
-            $param = ['items' => $items, 'user' => $user,];
+            $items = Shop::all();
+            $shops = Shop::all();
+            $param = ['items' => $items, 'user' => $user, 'shops' => $shops];
             return view('index', $param);
         } else {
             $query = Shop::query();
-            $query->where('area_id',"$area_id");
+            $query->where('area_id', "$area_id");
             $items = $query->get();
             $user = Auth::user();
             $param = ['items' => $items, 'user' => $user,];
@@ -65,12 +64,12 @@ class ShopController extends Controller
             $param = ['items' => $items, 'user' => $user,];
             return view('index', $param);
         } else {
-        $query = Shop::query();
-        $query->where('genre_id',"$genre_id");
-        $items = $query->get();
-        $user = Auth::user();
-        $param = ['items' => $items, 'user' => $user,];
-        return view('index', $param);
+            $query = Shop::query();
+            $query->where('genre_id', "$genre_id");
+            $items = $query->get();
+            $user = Auth::user();
+            $param = ['items' => $items, 'user' => $user,];
+            return view('index', $param);
         }
     }
     public function name_search(Request $request)

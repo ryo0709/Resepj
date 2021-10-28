@@ -42,6 +42,9 @@
     color: white;
     border-radius: 5px;
     margin-top: 5px;
+    font-weight: 400;
+    color: white;
+    padding: 4px 8px;
   }
 
   .btn_wrap {
@@ -176,31 +179,28 @@
 
 <script>
   $(function() {
-    let like = $('.like-toggle'); //like-toggleのついたiタグを取得し代入。
+    let like = $('.like-toggle');
     let likeShopId;
     let likeUserId;
-    like.on('click', function() { //onはイベントハンドラー
-      let $this = $(this); //this=イベントの発火した要素＝iタグを代入
+    like.on('click', function() {
+      let $this = $(this);
       likeShopId = $this.data('shop-id');
       likeUserId = $this.data('user-id');
-      //ajax処理スタート
       $.ajax({
-          headers: { //HTTPヘッダ情報をヘッダ名と値のマップで記述
+          headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }, //↑name属性がcsrf-tokenのmetaタグのcontent属性の値を取得
+          },
           url: '/liked',
           method: 'get',
-          data: { //サーバーに送信するデータ
+          data: {
             'shop_id': likeShopId,
             'user_id': likeUserId
           },
         })
-        //通信成功した時の処理
         .done(function(data) {
-          $this.toggleClass('liked'); //likedクラスのON/OFF切り替え。
+          $this.toggleClass('liked');
           $this.next('.like-counter').html(data.review_likes_count);
         })
-        //通信失敗した時の処理
         .fail(function() {
           console.log('fail');
         });
@@ -270,7 +270,7 @@
             <p class="date">{{$obj->shop->getArea()}} {{$obj->shop->getGenre()}}</p>
           </div>
           <div class="card_item">
-            <button class="btn"><a href="{{ route('detail', ['shop_id' =>  $obj->shop->id,]) }}" style="color:white;">詳しく見る</a></button>
+            <a class="btn" href="{{ route('detail', ['shop_id' =>  $obj->shop->id,]) }}">詳しく見る</a>
             <div class="heart icon"></div>
             <div class="likes">
               @if (!$obj->shop->isLikedBy(Auth::user()))

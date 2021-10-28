@@ -133,6 +133,11 @@
     box-shadow: 1px 1px 1px #BBB;
     margin-bottom: 20px;
     height: 30px;
+    cursor: pointer;
+  }
+
+  input {
+    cursor: pointer;
   }
 
   .reservation_btn_wrap {
@@ -188,7 +193,7 @@
               @error('date')
               <p style="color:red;">{{$message}}</p>
               @enderror
-              <input type="date" name="date" value="{{ $date }}" id="date" class="reservation_input">
+              <input type="date" name="date" value="{{ $date }}" id="date" class="reservation_input" min="<?php echo date("Y-m-d"); ?>" max="<?php echo date("Y-m-d", strtotime("+1 year")); ?>">
             </div>
             <div>
               @error('time')
