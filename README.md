@@ -17,3 +17,12 @@ Laravel Framework 8.61.0
    php artisan breeze:install<br>
    npm install<br>
    npm run dev
+
+# Author
+
+Nakamura
+
+# License
+
+curo****@gmail.com
+
