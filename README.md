@@ -13,7 +13,7 @@ Laravel Framework 8.61.0
 # Install
 
 1. [Node.js](https://nodejs.org/ja/)
-2. composer require laravel/breeze --dev
-   php artisan breeze:install
-   npm install
+2. composer require laravel/breeze --dev<br>
+   php artisan breeze:install<br>
+   npm install<br>
    npm run dev
