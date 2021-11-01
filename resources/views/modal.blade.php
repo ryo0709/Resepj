@@ -172,3 +172,47 @@
     alert(index);
   });
 </script>
+
+
+<div id="modal{{$loop->index}}" class="resevation_change">
+  <div class="resevation_change_tit">
+    <h2><i class="fa fa-paperclip fa-lg" style="margin-right:10px;"></i>予約変更</h2>
+    <div class="close" id="close">×閉じる</div>
+  </div>
+  <form action="/reservation_change" method="post">
+    @csrf
+    <!-- resevation_change -->
+    <!-- {{$date = date("Y-m-d",strtotime($start_at))}} -->
+    <!-- {{$time = date("H:i",strtotime($start_at))}} -->
+    <!-- {{$num_of_users =  $obj->num_of_users}} -->
+    <input name="user_id" value="{{$user->id}}" type="hidden">
+    <input name="id" value="{{$obj->id}}" type="hidden">
+    <input name="shop_id" value="{{$obj->shop->id}}" type="hidden">
+    <div>
+      @error('date')
+      <p style="color:red;">{{$message}}</p>
+      @enderror
+      <input type="date" name="date" class="change_date" value="{{ $date }}" id="date" class="reservation_input" min="<?php echo date("Y-m-d"); ?>" max="<?php echo date("Y-m-d", strtotime("+1 year")); ?>">
+    </div>
+    <div>
+      @error('time')
+      <p style="color:red;">{{$message}}</p>
+      @enderror
+      <select name="time" value="{{ $time }}" id="time" class="change_time">
+        <option value=""></option>
+        <option value="17:00" @if($time==="17:00" )selected @endif>17:00</option>
+        <option value="17:30" @if($time==="17:30" )selected @endif>17:30</option>
+        <option value="18:00" @if($time==="18:00" )selected @endif>18:00</option>
+      </select>
+    </div>
+    <div>
+      @error('num_of_users')
+      <p style="color:red;">{{$message}}</p>
+      @enderror
+      <select name="num_of_users" value="{{ $num_of_users }}" id="num_of_users" class="change_num_of_users">
+        <option value=""></option>
+        <option value="1" @if($num_of_users===1 ) selected @endif>1人</option>
+        <option value="2" @if($num_of_users===2 ) selected @endif>2人</option>
+        <option value="3" @if($num_of_users===3 ) selected @endif>3人</option>
+      </select>
+    </div>

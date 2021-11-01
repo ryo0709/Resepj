@@ -452,8 +452,6 @@
     <script>
       $('.modal').on('click', function() {
         $(this).toggleClass('active');
-        var date = $(this).attr("{{$date}}");
-        $('.pDate').text(date);
         $('#overlay').fadeIn();
         $("#modal" + $(this).attr('data-target')).addClass('active');
         $("#modal" + $(this).attr('data-target')).fadeIn(500);
