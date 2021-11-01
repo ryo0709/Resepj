@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Shop;
 use App\Models\Area;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +27,7 @@ class ShopController extends Controller
         $time = null;
         $datetime = null;
         $num = null;
+        $reservation = null;
         $param = [
             'shop' => $shop,
             'user' => $user,
@@ -33,6 +35,31 @@ class ShopController extends Controller
             'time' => $time,
             'datetime' => $datetime,
             'num' => $num,
+            'reservation' => $reservation
+        ];
+        return view('detail', $param);
+    }
+    public function change_detail($id)
+    {
+        $user = Auth::user();
+        $shop = Shop::find($id);
+        $user_id = $user -> id;
+        $shop_id = $shop -> id;
+        $query = Reservation::query();
+        $query->where('shop_id', "$shop_id")->where('user_id', "$user_id");
+        $reservation = $query->first();
+        $date = null;
+        $time = null;
+        $datetime = null;
+        $num = null;
+        $param = [
+            'shop' => $shop,
+            'user' => $user,
+            'date' => $date,
+            'time' => $time,
+            'datetime' => $datetime,
+            'num' => $num,
+            'reservation' => $reservation
         ];
         return view('detail', $param);
     }

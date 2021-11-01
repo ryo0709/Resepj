@@ -192,11 +192,11 @@
             @csrf
             <label for="logout" class="logout_text">logout<input type="submit" value="" class="logout" id="logout"></label>
 
-            <!-- <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+             <!-- <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                 {{ __('logout') }}
-              </x-dropdown-link>
-            </form> -->
+              </x-dropdown-link> -->
+            </form>
         </li>
       </ul>
     </div>

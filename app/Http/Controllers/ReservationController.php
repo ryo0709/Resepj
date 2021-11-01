@@ -16,7 +16,7 @@ class ReservationController extends Controller
             'shop_id' => 'required',
             'date' => 'required',
             'time' => 'required',
-            'num' => 'required',
+            'num_of_users' => 'required',
         ];
         $this->validate($request, $validate_rule);
 
@@ -25,12 +25,37 @@ class ReservationController extends Controller
         $date = $request->date;
         $time = $request->time;
         $datetime = $date . "T" . $time;
-        $num = $request->num;
+        $num_of_users = $request->num_of_users;
         $reservation = new Reservation;
         $reservation->shop_id = $shop_id;
         $reservation->user_id = $user_id;
         $reservation->start_at = $datetime;
-        $reservation->num_of_users = $num;
+        $reservation->num_of_users = $num_of_users;
+        $reservation->save();
+        return redirect('/done');
+    }
+    public function reservation_change(Request $request)
+    {
+        $validate_rule = [
+            'user_id' => 'required',
+            'shop_id' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+            'num_of_users' => 'required',
+        ];
+        $this->validate($request, $validate_rule);
+
+        $reservation = Reservation::find($request->id);
+        $date = $request->date;
+        $time = $request->time;
+        $start_at = $date . "T" . $time;
+        $num_of_users = $request->num_of_users;
+        $user_id = $request->user_id;
+        $shop_id = $request->shop_id;
+        $reservation->shop_id = $shop_id;
+        $reservation->user_id = $user_id;
+        $reservation->start_at = $start_at;
+        $reservation->num_of_users = $num_of_users;
         $reservation->save();
         return redirect('/done');
     }

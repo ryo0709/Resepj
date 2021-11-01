@@ -181,83 +181,94 @@
     <div class="reservation">
       <div class="reservation_wrap">
         <h2 class="reservation_title">予約</h2>
-        <form action="/reservation" method="post">
-          @csrf
-          <div>
-            @if (Auth::check())
-            <input name="user_id" value="{{$user->id}}" type="hidden">
-            @else
+        @if (Auth::check() && $reservation !== NULL )
+        <form action="/reservation_change" method="post">
+          @elseif (Auth::check())
+          <form action="/reservation" method="post">
             @endif
-            <input name="shop_id" value="{{$shop->id}}" type="hidden">
+            @csrf
             <div>
-              @error('date')
-              <p style="color:red;">{{$message}}</p>
-              @enderror
-              <input type="date" name="date" value="{{ $date }}" id="date" class="reservation_input" min="<?php echo date("Y-m-d"); ?>" max="<?php echo date("Y-m-d", strtotime("+1 year")); ?>">
-            </div>
-            <div>
-              @error('time')
-              <p style="color:red;">{{$message}}</p>
-              @enderror
-              <select name="time" value="{{ $time }}" id="time">
-                <option value=""></option>
-                <option value="17:00">17:00</option>
-                <option value="17:30">17:30</option>
-                <option value="18:00">18:00</option>
-              </select>
-            </div>
-            <div>
-              @error('num')
-              <p style="color:red;">{{$message}}</p>
-              @enderror
-              <select name="num" value="{{ $num }}" id="num">
-                <option value=""></option>
-                <option value="1">1人</option>
-                <option value="2">2人</option>
-                <option value="3">3人</option>
-              </select>
-            </div>
-          </div>
-          <div class="reservation_detail">
-            <div class="reservation_detail_wrap">
-              <div class="item_wrap">
-                <p class="item">Shop</p>
-                <p style="color:white;">{{$shop->name}}</p>
+              @if (Auth::check())
+              <input name="user_id" value="{{$user->id}}" type="hidden">
+              @endif
+              @if($reservation !== NULL)
+              <input name="id" value="{{$reservation->id}}" type="hidden">
+              <!-- {{$start_at = $reservation->start_at}} -->
+              <!-- {{$date = date("Y-m-d",strtotime($start_at))}} -->
+              <!-- {{$time = date("H:i",strtotime($start_at))}} -->
+              <!-- {{$num =  $reservation->num_of_users}} -->
+              @endif
+              <input name="shop_id" value="{{$shop->id}}" type="hidden">
+              <div>
+                @error('date')
+                <p style="color:red;">{{$message}}</p>
+                @enderror
+                <input type="date" name="date" value="{{ $date }}" id="date" class="reservation_input" min="<?php echo date("Y-m-d"); ?>" max="<?php echo date("Y-m-d", strtotime("+1 year")); ?>">
               </div>
-              <div class="item_wrap">
-                <p class="item">Date</p>
-                <p style="color:white;" id="pDate"></p>
+              <div>
+                @error('time')
+                <p style="color:red;">{{$message}}</p>
+                @enderror
+                <select name="time" value="{{ $time }}" id="time">
+                  <option value=""></option>
+                  <option value="17:00" @if($time==="17:00" )selected @endif>17:00</option>
+                  <option value="17:30" @if($time==="17:30" )selected @endif>17:30</option>
+                  <option value="18:00" @if($time==="18:00" )selected @endif>18:00</option>
+                </select>
               </div>
-              <div class="item_wrap">
-                <p class="item">Time</p>
-                <p style="color:white;" id="pTime"></p>
-              </div>
-              <div class="item_wrap">
-                <p class="item">Number</p>
-                <p style="color:white;" id="pNum"></p>
-                <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-                <script>
-                  $('#date').change(function() {
-                    var date = $('#date').val();
-                    $('#pDate').text(date);
-                  });
-                  $('#time').change(function() {
-                    var time = $('#time').val();
-                    $('#pTime').text(time);
-                  });
-                  $('#num').change(function() {
-                    var num = $('#num').val();
-                    $('#pNum').text(num + '人');
-                  });
-                </script>
+              <div>
+                @error('num_of_users')
+                <p style="color:red;">{{$message}}</p>
+                @enderror
+                <select name="num_of_users" value="{{ $num }}" id="num">
+                  <option value=""></option>
+                  <option value="1" @if($num===1 ) selected @endif>1人</option>
+                  <option value="2" @if($num===2 ) selected @endif>2人</option>
+                  <option value="3" @if($num===3 ) selected @endif>3人</option>
+                </select>
               </div>
             </div>
-          </div>
+            <div class="reservation_detail">
+              <div class="reservation_detail_wrap">
+                <div class="item_wrap">
+                  <p class="item">Shop</p>
+                  <p style="color:white;">{{$shop->name}}</p>
+                </div>
+                <div class="item_wrap">
+                  <p class="item">Date</p>
+                  <p style="color:white;" id="pDate">{{$date}}</p>
+                </div>
+                <div class="item_wrap">
+                  <p class="item">Time</p>
+                  <p style="color:white;" id="pTime">{{$time}}</p>
+                </div>
+                <div class="item_wrap">
+                  <p class="item">Number</p>
+                  <p style="color:white;" id="pNum">{{$num}}</p>
+                  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                  <script>
+                    $('#date').change(function() {
+                      var date = $('#date').val();
+                      $('#pDate').text(date);
+                    });
+                    $('#time').change(function() {
+                      var time = $('#time').val();
+                      $('#pTime').text(time);
+                    });
+                    $('#num').change(function() {
+                      var num = $('#num').val();
+                      $('#pNum').text(num + '人');
+                    });
+                  </script>
+                </div>
+              </div>
+            </div>
 
       </div><!-- resavation_wrap -->
       <div class="reservation_btn_wrap" style="border-top:solid 1px #BBB;border-radius:0 0 5px 5px;">
-        @if (Auth::check())
-
+        @if (Auth::check() && $reservation !== NULL )
+        <label for="reservation"><input type="submit" value="変更する" class="reservation_btn" id="reservation" style="width:100%;"></label>
+        @elseif (Auth::check())
         <label for="reservation"><input type="submit" value="予約する" class="reservation_btn" id="reservation" style="width:100%;"></label>
         @else
         <p>ログインしていません。（<a href="/login" style="color:white;">ログイン</a>｜
