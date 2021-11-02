@@ -17,10 +17,13 @@
     }
   </style>
 </head>
+
 <body>
   @include('layouts.header')
   @yield('content')
   <div class="content">
   </div>
+  @extends('modal')
 </body>
+
 </html>

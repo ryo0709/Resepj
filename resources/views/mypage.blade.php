@@ -370,9 +370,6 @@
         <p class="section_name">Number</p>
         <p class="section_detail">{{$obj->num_of_users.'人'}}</p>
       </div>
-
-
-
       <div id="modal{{$loop->index}}" class="resevation_change">
         <div class="resevation_change_tit">
           <h2><i class="fa fa-paperclip fa-lg" style="margin-right:10px;"></i>予約変更</h2>
@@ -415,9 +412,6 @@
               <option value="3" @if($num_of_users===3 ) selected @endif>3人</option>
             </select>
           </div>
-
-
-
           <div class="reservation_detail">
             <div class="reservation_detail_wrap">
               <div class="item_wrap">
@@ -440,12 +434,7 @@
             </div>
           </div>
           <label for="reservation"><input type="submit" value="変更する" class="reservation_btn" id="reservation" style="width:100%;"></label>
-
-
-
-
         </form>
-
       </div><!-- resevation-change -->
     </div><!-- resevation-detail -->
     @endforeach
@@ -472,7 +461,6 @@
       });
       $('.change_time').change(function() {
         var time = $(this).val();
-        alert(time);
         $('.pTime').text(time);
       });
       $('.change_num_of_users').change(function() {

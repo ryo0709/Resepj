@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Reservation;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,11 +24,20 @@ class ShopController extends Controller
     {
         $user = Auth::user();
         $shop = Shop::find($id);
+        $query = Review::query();
+        $shop_id = $shop->id;
+        $query->where('shop_id', "$shop_id");
+        $reviews = $query->get();
         $date = null;
         $time = null;
         $datetime = null;
         $num = null;
-        $reservation = null;
+
+        if($user !== null) {
+        $user_id = $user->id;
+        $query_reservation = Reservation::query();
+        $query_reservation->where('shop_id', "$shop_id")->where('user_id', "$user_id");
+        $reservation = $query_reservation->orderBy('start_at', 'asc')->first();
         $param = [
             'shop' => $shop,
             'user' => $user,
@@ -35,9 +45,22 @@ class ShopController extends Controller
             'time' => $time,
             'datetime' => $datetime,
             'num' => $num,
+            'reviews' => $reviews,
             'reservation' => $reservation
         ];
         return view('detail', $param);
+    } else {
+            $param = [
+                'shop' => $shop,
+                'user' => $user,
+                'date' => $date,
+                'time' => $time,
+                'datetime' => $datetime,
+                'num' => $num,
+                'reviews' => $reviews,
+            ];
+            return view('detail', $param);
+    }
     }
     public function change_detail($id)
     {
@@ -45,9 +68,9 @@ class ShopController extends Controller
         $shop = Shop::find($id);
         $user_id = $user -> id;
         $shop_id = $shop -> id;
-        $query = Reservation::query();
-        $query->where('shop_id', "$shop_id")->where('user_id', "$user_id");
-        $reservation = $query->first();
+        $query_reservation = Reservation::query();
+        $query_reservation->where('shop_id', "$shop_id")->where('user_id', "$user_id");
+        $reservation = $query_reservation->get();
         $date = null;
         $time = null;
         $datetime = null;

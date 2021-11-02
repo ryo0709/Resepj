@@ -43,4 +43,12 @@ class Shop extends Model
     {
         return Like::where('user_id', $user->id)->where('shop_id', $this->id)->first() !== null;
     }
+    public function review()
+    {
+        return $this->hasMany('App\Models\Review');
+    }
+    public function getComent()
+    {
+        return '#' . optional($this->review)->coment;
+    }
 }

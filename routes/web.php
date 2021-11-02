@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,8 @@ Route::post('/delete/{resevation_id}', [ReservationController::class, 'delete'])
 Route::get('/done', function () {
     return view('done');
 });
+Route::post('/review', [ReviewController::class, 'review']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
