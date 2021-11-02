@@ -297,7 +297,7 @@
     </div><!-- resavation -->
   </div><!-- warap -->
   <div class="review">
-    @if (Auth::check())
+    @if ($reservation !==null )
     <?php $today = date("Y-m-d H:i:s", strtotime("+1 hours")); ?>
     <!-- {{$today}} -->
     <!-- {{$start_at = $reservation->start_at}} -->

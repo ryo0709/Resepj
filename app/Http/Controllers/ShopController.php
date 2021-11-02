@@ -50,6 +50,7 @@ class ShopController extends Controller
         ];
         return view('detail', $param);
     } else {
+            $reservation =null;
             $param = [
                 'shop' => $shop,
                 'user' => $user,
@@ -58,6 +59,7 @@ class ShopController extends Controller
                 'datetime' => $datetime,
                 'num' => $num,
                 'reviews' => $reviews,
+                'reservation' => $reservation
             ];
             return view('detail', $param);
     }
