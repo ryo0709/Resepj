@@ -33,11 +33,14 @@ class ShopController extends Controller
         $datetime = null;
         $num = null;
 
-        if($user !== null) {
+        if($user !== null) {//ログインしている
         $user_id = $user->id;
         $query_reservation = Reservation::query();
         $query_reservation->where('shop_id', "$shop_id")->where('user_id', "$user_id");
         $reservation = $query_reservation->orderBy('start_at', 'asc')->first();
+            $user_review_query = Review::query();
+            $user_review_query->where('shop_id', "$shop_id")->where('user_id', "$user_id");
+            $user_review = $user_review_query->first();
         $param = [
             'shop' => $shop,
             'user' => $user,
@@ -46,10 +49,11 @@ class ShopController extends Controller
             'datetime' => $datetime,
             'num' => $num,
             'reviews' => $reviews,
-            'reservation' => $reservation
+            'reservation' => $reservation,
+            'user_review' => $user_review,
         ];
         return view('detail', $param);
-    } else {
+    } else { //ログインしてない
             $reservation =null;
             $param = [
                 'shop' => $shop,

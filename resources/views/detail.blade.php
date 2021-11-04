@@ -158,6 +158,7 @@
     cursor: pointer;
   }
 
+
   .rate-form {
     display: flex;
     flex-direction: row-reverse;
@@ -170,10 +171,9 @@
 
   .rate-form label {
     position: relative;
-    padding: 0 5px;
     color: #ccc;
     cursor: pointer;
-    font-size: 35px;
+    font-size: 25px;
   }
 
   .rate-form label:hover {
@@ -187,7 +187,91 @@
   .rate-form input[type=radio]:checked~label {
     color: #ffcc00;
   }
+
+  .reviews {
+    margin: 30px 0;
+  }
+
+  .reviews h2 {
+    margin: 20px 0;
+  }
+
+  .review {
+    border-top: 1px solid #CCCCCC;
+    border-collapse: collapse;
+    width: 48%;
+  }
+
+  .rate {
+    display: flex;
+    align-items: center;
+  }
+
+  .rate p {
+    margin-right: 20px;
+    font-weight: 400;
+  }
+
+  .user_name {
+    font-weight: 400;
+    align-items: center;
+  }
+
+  .coment textarea {
+    border: 1px solid #E6E6E6;
+    background-color: #E6E6E6;
+    width: 94%;
+    font-size: 14px;
+  }
+
+  .user_review {
+    border-bottom: 1px solid #CCCCCC;
+    padding-top: 12px;
+    border-collapse: collapse;
+  }
+
+  .star {
+    color: #ffcc00;
+    font-size: 25px;
+  }
+
+  .no_star {
+    color: #ccc;
+    font-size: 25px;
+  }
+
+  .review_toggle {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #CCCCCC;
+  }
+
+  .review_change {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #CCCCCC;
+  }
+
+  .flexAlignCenter {
+    display: flex;
+    align-items: center;
+  }
+
+  .avg_reviews {
+    width: 48%;
+    justify-content: space-between;
+  }
+
+  .avg_reviews_content {
+    margin-right: 10px;
+  }
+
+  .aveP {
+    font-size: 20px;
+    font-weight: bold;
+  }
 </style>
+
 @section('title')
 
 @section('content')
@@ -296,50 +380,125 @@
       </form>
     </div><!-- resavation -->
   </div><!-- warap -->
+  <div class="avg_reviews flexAlignCenter">
+    <h2>レビュー</h2>
+    <div class="avg_reviews_content flexAlignCenter">
+      <div class="count flexAlignCenter">
+        <i class="fas fa-comment"></i>
+        <p>{{$reviews->count()}}件</p>
+      </div><!-- count_reviews -->
+      <div class="ave flexAlignCenter">
+        <!-- <p>{{$ave = $reviews->avg('rate')}}</p> -->
+        <p class="star">★</p>
+        <p class="aveP"><?php echo round($ave, 1) . "\n"; ?></p>
+      </div><!-- avg -->
+    </div><!-- avg_reviews -->
+  </div><!-- avg_reviews_content  -->
   <div class="review">
-    @if ($reservation !==null )
+    @if ($reservation !==null)　
     <?php $today = date("Y-m-d H:i:s", strtotime("+1 hours")); ?>
-    <!-- {{$today}} -->
     <!-- {{$start_at = $reservation->start_at}} -->
-    <!-- {{$start_at}} -->
-    {{$reservation->id}}
-    <!-- @if($start_at<date("Y-m-d H:i:s"))
-    コメントをお願いします
-    @else
-    未来店です
-    @endif -->
-
     @endif
-    @foreach( $reviews as $review)
-    {{$review->coment}}
-
-
-    @endforeach
-
-    <form method="post" action="/review">
+    <script>
+      $(function() {
+        $('.review_toggle').click(function() {
+          $('.review_change').toggle();
+        });
+      });
+    </script>
+    @if ($reservation !==null && $user_review !==null) <p class="review_toggle ">レビューを変更する</p>
+    <div class="review_change" style="display:none;">
+      <!-- {{$rate = $user_review->rate }} -->
+      <form method="post" action="/review_change">
+        @csrf
+        <div class="user_name ">
+          <p>{{$user->name}}</p>
+        </div>
+        <div class="rate">
+          <input name="id" value="{{$user_review->id}}" type="hidden">
+          <input name="user_id" value="{{$user->id}}" type="hidden">
+          <input name="shop_id" value="{{$shop->id}}" type="hidden">
+          <p>評価</p>
+          <div class="rate-form">
+            <input id="star5" type="radio" name="rate" value="5" @if($rate===5 ) checked @endif>
+            <label for="star5">★</label>
+            <input id="star4" type="radio" name="rate" value="4" @if($rate===4 ) checked @endif>
+            <label for="star4">★</label>
+            <input id="star3" type="radio" name="rate" value="3" @if($rate===3 ) checked @endif>
+            <label for="star3">★</label>
+            <input id="star2" type="radio" name="rate" value="2" @if($rate===2 ) checked @endif>
+            <label for="star2">★</label>
+            <input id="star1" type="radio" name="rate" value="1" @if($rate===1 ) checked @endif>
+            <label for="star1">★</label>
+          </div><!-- rate-form -->
+        </div><!-- rate -->
+        <div class="coment">
+          <textarea name="coment" rows="4" cols="100">{{$user_review->coment}}</textarea>
+        </div>
+        <input type="submit" value="変更">
+      </form>
+      <!--action="/review_change" -->
+    </div>
+    @elseif ($reservation !==null && $start_at<$today ) <form method="post" action="/review">
       @csrf
-      @if (Auth::check())
-      <input name="user_id" value="{{$user->id}}">
-      @endif
-      <input name="shop_id" value="{{$shop->id}}">
-      <div class="rate-form">
-        <input id="star5" type="radio" name="rate" value="5">
-        <label for="star5">★</label>
-        <input id="star4" type="radio" name="rate" value="4">
-        <label for="star4">★</label>
-        <input id="star3" type="radio" name="rate" value="3">
-        <label for="star3">★</label>
-        <input id="star2" type="radio" name="rate" value="2">
-        <label for="star2">★</label>
-        <input id="star1" type="radio" name="rate" value="1">
-        <label for="star1">★</label>
+      <div class="user_name ">
+        <p>{{$user->name}}</p>{{$user_review}}
       </div>
+      <div class="rate">
+        <input name="user_id" value="{{$user->id}}" type="hidden">
+        <input name="shop_id" value="{{$shop->id}}" type="hidden">
+        <p>評価</p>
+        <div class="rate-form">
+          <input id="star5" type="radio" name="rate" value="5">
+          <label for="star5">★</label>
+          <input id="star4" type="radio" name="rate" value="4">
+          <label for="star4">★</label>
+          <input id="star3" type="radio" name="rate" value="3">
+          <label for="star3">★</label>
+          <input id="star2" type="radio" name="rate" value="2">
+          <label for="star2">★</label>
+          <input id="star1" type="radio" name="rate" value="1">
+          <label for="star1">★</label>
+        </div><!-- rate-form -->
+      </div><!-- rate -->
       <div class="coment">
-        <textarea name="coment" rows="4" cols="40"></textarea>
+        <textarea name="coment" rows="4" cols="100" placeholder="レビューを入力する"></textarea>
       </div>
-      <input type="submit">
-    </form>
-  </div>
+      <input type="submit" value="コメント">
+      </form>
+      <!--action="/review" -->
+      @endif
+      @foreach( $reviews as $review)
+      <div class="user_review">
+        <p style="margin-bottom:10px;">{{$review->user->name}}</p>
+        <div class="rate-form" style="margin-bottom:10px;">
+          @if($review->rate === 1)
+          <p class="no_star">★★★★</p>
+          <p class="star">★</p>
+          @elseif($review->rate === 2)
+          <p class="no_star">★★★</p>
+          <p class="star">★★</p>
+          @elseif($review->rate === 3)
+          <p class="no_star">★★</p>
+          <p class="star">★★★</p>
+          @elseif($review->rate === 4)
+          <p class="no_star">★</p>
+          <p class="star">★★★★</p>
+          @elseif($review->rate === 5)
+          <p class="no_star"></p>
+          <p class="star">★★★★★</p>
+          @endif
+        </div><!-- rate-form -->
+        <p style="margin-bottom:20px;">{{$review->coment}}</p>
+      </div>
+      <!--user_review" -->
+
+
+      @endforeach
+
+
+  </div><!-- review -->
+</div><!-- reviews -->
 </div><!-- content -->
 
 

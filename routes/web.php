@@ -46,6 +46,7 @@ Route::get('/done', function () {
     return view('done');
 });
 Route::post('/review', [ReviewController::class, 'review']);
+Route::post('/review_change', [ReviewController::class, 'review_change']);
 
 
 Route::get('/dashboard', function () {

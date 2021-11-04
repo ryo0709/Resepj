@@ -395,7 +395,6 @@
             <p style="color:red;">{{$message}}</p>
             @enderror
             <select name="time" value="{{ $time }}" id="time" class="change_time">
-              <option value=""></option>
               <option value="17:00" @if($time==="17:00" )selected @endif>17:00</option>
               <option value="17:30" @if($time==="17:30" )selected @endif>17:30</option>
               <option value="18:00" @if($time==="18:00" )selected @endif>18:00</option>
@@ -406,7 +405,6 @@
             <p style="color:red;">{{$message}}</p>
             @enderror
             <select name="num_of_users" value="{{ $num_of_users }}" id="num_of_users" class="change_num_of_users">
-              <option value=""></option>
               <option value="1" @if($num_of_users===1 ) selected @endif>1人</option>
               <option value="2" @if($num_of_users===2 ) selected @endif>2人</option>
               <option value="3" @if($num_of_users===3 ) selected @endif>3人</option>
