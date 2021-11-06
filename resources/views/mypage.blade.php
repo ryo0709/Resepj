@@ -55,7 +55,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
   }
 
   a {
@@ -113,7 +112,7 @@
   }
 
   .user_name {
-    text-align: left;
+    text-align: center;
   }
 
   .tit {
@@ -292,6 +291,113 @@
   .change_date {
     margin-bottom: 20px;
   }
+
+  .mypage_content_title {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .reservation-title {
+    width: 50%;
+  }
+
+  .likes_title_second {
+    display: none;
+  }
+
+  @media screen and (max-width: 1080px) {
+    .btn {
+      font-size: 12px;
+      padding: 8px 4px;
+    }
+
+    .card_item {
+      width: 100%;
+    }
+
+    .date {
+      font-size: 6px;
+    }
+
+    .text-box {
+      padding-left: 4px;
+    }
+  }
+
+  @media screen and (max-width: 785px) {
+
+
+    .title {
+      font-size: 16px;
+    }
+
+    .content {
+      display: block;
+    }
+
+    .reservation {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .resevation-detail {
+      width: 45%;
+      margin-right: 2px;
+    }
+
+    .mypage_content_title {
+      width: auto;
+    }
+
+    .reservation-title {
+      width: auto;
+    }
+
+    .likes_title {
+      display: none;
+    }
+
+    .section_name {
+      margin-right: 0px;
+      padding-left: 2px;
+    }
+
+    .resevation_header {
+      padding-left: 2px;
+    }
+
+    .resevation_header_tit h2 {
+      padding-left: 2px;
+    }
+
+    .round_btn {
+      margin-left: 5px;
+    }
+
+    .liked-shop {
+      width: 100%;
+    }
+
+    .card {
+      width: 45%;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      border: solid 1px #BBBBBB;
+      border-radius: 5px;
+      box-shadow: 1px 1px 1px #BBB;
+    }
+
+    .btn {
+      font-size: 16px;
+      padding: 4px 8px;
+    }
+
+    .likes_title_second {
+      display: block;
+    }
+  }
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
@@ -334,9 +440,21 @@
 @section('content')
 
 <div id="overlay" class="overlay"></div>
+<div class="user_name">
+  <h1>{{ $user->name . 'さん'}}</h1>
+</div>
+<div class="mypage_content_title">
+  <div class="reservation-title">
+    <h2 class="tit2">予約状況</h2>
+  </div>
+  <div class="likes_title">
+    <h2 class="tit2">お気に入り店舗</h2>
+  </div>
+</div>
+
+
 <div class="content">
   <div class="reservation">
-    <h2 class="tit2">予約状況</h2>
     <?php $i = 1; ?>
     @foreach ($items as $item)
     @foreach($item->reservations as $obj)
@@ -470,10 +588,9 @@
     @endforeach
   </div><!-- reservation -->
   <div class="liked-shop">
-    <div class="user_name">
-      <h1>{{ $user->name . 'さん'}}</h1>
+    <div class="likes_title_second">
+      <h2 class="tit2">お気に入り店舗</h2>
     </div>
-    <h2 class="tit">お気に入り店舗</h2>
     <div class="liked-shop-detail">
       @foreach ($items as $item)
       @foreach($item->likes as $obj)

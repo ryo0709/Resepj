@@ -152,10 +152,10 @@
 
     @media screen and (max-width: 785px) {
       .search {
-        margin-right: auto;
         margin-top: 70px;
         margin-bottom: 20px;
         height: 20px;
+        width: 100%;
       }
       
     }

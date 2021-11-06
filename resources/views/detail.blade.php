@@ -159,6 +159,7 @@
   }
 
 
+
   .rate-form {
     display: flex;
     flex-direction: row-reverse;
@@ -274,6 +275,69 @@
   .user_rate {
     margin-top: 10px;
   }
+
+  .users_review_toggle {
+    display: none;
+  }
+
+  .reservation_toggle {
+    display: none;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #CCCCCC;
+    width: 94%;
+  }
+
+  @media screen and (max-width: 768px) {
+
+    .reservation,
+    .user_review {
+      display: none;
+    }
+
+    .card {
+      width: 100%;
+    }
+
+    .review,
+    .avg_reviews {
+      width: 94%;
+    }
+
+    .users_review_toggle {
+      display: block;
+    }
+
+    .reservation_toggle {
+      display: block;
+
+    }
+
+    .reservation {
+      width: 100%;
+      height: auto;
+    }
+
+    .wrap {
+      display: block;
+    }
+  }
+
+  @media screen and (min-width: 769px) {
+
+    .reservation,
+    .user_review {
+      display: block;
+    }
+
+    .reservation,
+    .card {
+      width: 50%;
+    }
+
+    .wrap {
+      display: flex;
+    }
+  }
 </style>
 
 @section('title')
@@ -294,6 +358,22 @@
       <div class="text-box">
         <p class="date">{{$shop->getArea()}} {{$shop->getGenre()}}</p>
         <p>{{$shop->description}}</p>
+      </div>
+      <script>
+        $(function() {
+          $('.reservation_toggle').click(function() {
+            $('.reservation').show();
+          });
+        });
+        // $(function() {
+        //   $('.reservation_toggle').click(function() {
+        //     $('.reservation').toggle();
+        //   });
+        // });
+      </script>
+      <div class="reservation_toggle flexAlignCenter">
+        <i class="fas fa-plus" style="margin: 5 5px;"></i>
+        <p style="display:inline-block;cursor: pointer;">予約する</p>
       </div>
     </div><!-- card -->
     <div class="reservation">
@@ -398,6 +478,17 @@
       </div><!-- avg -->
     </div><!-- avg_reviews -->
   </div><!-- avg_reviews_content  -->
+  <script>
+    $(function() {
+      $('.users_review_toggle').click(function() {
+        $('.user_review').show();
+      });
+    });
+  </script>
+  <div class="users_review_toggle flexAlignCenter">
+    <i class="fas fa-plus" style="margin: 5 5px;"></i>
+    <p style="display:inline-block;cursor: pointer;">レビューを見る</p>
+  </div>
   <div class="review">
     @if ($reservation !==null)　
     <?php $today = date("Y-m-d H:i:s", strtotime("+1 hours")); ?>
@@ -514,7 +605,7 @@
 
   </div><!-- review -->
 </div><!-- reviews -->
-</div><!-- content -->
+<!-- content -->
 
 
 
