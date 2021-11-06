@@ -203,13 +203,13 @@
   }
 
   .rate {
-    display: flex;
     align-items: center;
   }
 
   .rate p {
     margin-right: 20px;
     font-weight: 400;
+    align-items: center;
   }
 
   .user_name {
@@ -270,6 +270,10 @@
     font-size: 20px;
     font-weight: bold;
   }
+
+  .user_rate {
+    margin-top: 10px;
+  }
 </style>
 
 @section('title')
@@ -306,28 +310,28 @@
               @error('date')
               <p style="color:red;">{{$message}}</p>
               @enderror
-              <input type="date" name="date" value="{{ $date }}" id="date" class="reservation_input" min="<?php echo date("Y-m-d"); ?>" max="<?php echo date("Y-m-d", strtotime("+1 year")); ?>">
+              <input type="date" name="date" value="{{ old('date') }}" id="date" class="reservation_input" min="<?php echo date("Y-m-d"); ?>" max="<?php echo date("Y-m-d", strtotime("+1 year")); ?>">
             </div>
             <div>
               @error('time')
               <p style="color:red;">{{$message}}</p>
               @enderror
-              <select name="time" value="{{ $time }}" id="time">
+              <select name="time" id="time">
                 <option value=""></option>
-                <option value="17:00" @if($time==="17:00" )selected @endif>17:00</option>
-                <option value="17:30" @if($time==="17:30" )selected @endif>17:30</option>
-                <option value="18:00" @if($time==="18:00" )selected @endif>18:00</option>
+                <option value="17:00" @if(old('time')=='17:00' )selected @endif>17:00</option>
+                <option value="17:30" @if(old('time')=='17:30' )selected @endif>17:30</option>
+                <option value="18:00" @if(old('time')=='18:00' )selected @endif>18:00</option>
               </select>
             </div>
             <div>
               @error('num_of_users')
               <p style="color:red;">{{$message}}</p>
               @enderror
-              <select name="num_of_users" value="{{ $num }}" id="num">
+              <select name="num_of_users" id="num">
                 <option value=""></option>
-                <option value="1" @if($num===1 ) selected @endif>1人</option>
-                <option value="2" @if($num===2 ) selected @endif>2人</option>
-                <option value="3" @if($num===3 ) selected @endif>3人</option>
+                <option value="1" @if(old('num_of_users')=='1' ) selected @endif>1人</option>
+                <option value="2" @if(old('num_of_users')=='2' ) selected @endif>2人</option>
+                <option value="3" @if(old('num_of_users')=='3' ) selected @endif>3人</option>
               </select>
             </div>
           </div>
@@ -339,15 +343,15 @@
               </div>
               <div class="item_wrap">
                 <p class="item">Date</p>
-                <p style="color:white;" id="pDate">{{$date}}</p>
+                <p style="color:white;" id="pDate">{{old('date')}}</p>
               </div>
               <div class="item_wrap">
                 <p class="item">Time</p>
-                <p style="color:white;" id="pTime">{{$time}}</p>
+                <p style="color:white;" id="pTime">{{old('time')}}</p>
               </div>
               <div class="item_wrap">
                 <p class="item">Number</p>
-                <p style="color:white;" id="pNum">{{$num}}</p>
+                <p style="color:white;" id="pNum">{{old('num_of_users')}}</p>
                 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                 <script>
                   $('#date').change(function() {
@@ -418,7 +422,7 @@
           <input name="id" value="{{$user_review->id}}" type="hidden">
           <input name="user_id" value="{{$user->id}}" type="hidden">
           <input name="shop_id" value="{{$shop->id}}" type="hidden">
-          <p>評価</p>
+          <p style="align-items: center;">評価</p>
           <div class="rate-form">
             <input id="star5" type="radio" name="rate" value="5" @if($rate===5 ) checked @endif>
             <label for="star5">★</label>
@@ -433,21 +437,29 @@
           </div><!-- rate-form -->
         </div><!-- rate -->
         <div class="coment">
-          <textarea name="coment" rows="4" cols="100">{{$user_review->coment}}</textarea>
+          @error('coment')
+          <p style="color:red;">{{$message}}</p>
+          @enderror
+          <textarea name="coment" rows="4" cols="100">{{$user_review->coment}} </textarea>
         </div>
         <input type="submit" value="変更">
       </form>
       <!--action="/review_change" -->
     </div>
-    @elseif ($reservation !==null && $start_at<$today ) <form method="post" action="/review">
+    @elseif ($reservation !==null && $start_at<$today) <form method="post" action="/review">
       @csrf
       <div class="user_name ">
         <p>{{$user->name}}</p>{{$user_review}}
       </div>
       <div class="rate">
-        <input name="user_id" value="{{$user->id}}" type="hidden">
+        <input name=" user_id" value="{{$user->id}}" type="hidden">
         <input name="shop_id" value="{{$shop->id}}" type="hidden">
-        <p>評価</p>
+        <div class="user_rate">@error('rate')
+          <p style="color:red;">{{$message}}</p>
+          @enderror
+          <p　style="margin: top 5px; display:block;">評価</p>
+        </div>
+
         <div class="rate-form">
           <input id="star5" type="radio" name="rate" value="5">
           <label for="star5">★</label>
@@ -459,9 +471,12 @@
           <label for="star2">★</label>
           <input id="star1" type="radio" name="rate" value="1">
           <label for="star1">★</label>
-        </div><!-- rate-form -->
+        </div style="aligin-item:center;"><!-- rate-form -->
       </div><!-- rate -->
       <div class="coment">
+        @error('coment')
+        <p style="color:red;">{{$message}}</p>
+        @enderror
         <textarea name="coment" rows="4" cols="100" placeholder="レビューを入力する"></textarea>
       </div>
       <input type="submit" value="コメント">

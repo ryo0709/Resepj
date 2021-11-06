@@ -142,13 +142,28 @@
 
     .search {
       display: flex;
-      margin-left: auto;
       text-align: left;
       background-color: white;
       border-radius: 5px;
       box-shadow: 1px 1px 1px #BBB;
       height: 40px;
       align-items: center;
+    }
+
+    @media screen and (max-width: 785px) {
+      .search {
+        margin-right: auto;
+        margin-top: 70px;
+        margin-bottom: 20px;
+        height: 20px;
+      }
+      
+    }
+
+    @media screen and (min-width: 786px) {
+      .search {
+        margin-left: auto;
+      }
     }
 
     input {

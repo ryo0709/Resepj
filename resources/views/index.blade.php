@@ -61,6 +61,45 @@
     padding: 4px 8px;
   }
 
+  @media screen and (max-width: 1000px) {
+    .btn {
+      font-size: 12px;
+      padding: 4px 6px;
+    }
+
+  }
+
+  @media screen and (max-width: 768px) {
+
+
+    .title {
+      font-size: 16px;
+    }
+
+    .text-box {
+      padding: 15px;
+      background-color: white;
+    }
+
+
+  }
+
+  @media screen and (max-width: 785px) {
+    .card {
+      width: 40%;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      border: solid 1px #BBBBBB;
+      border-radius: 5px;
+      box-shadow: 1px 1px 1px #BBB;
+    }
+
+    .btn {
+      font-size: 16px;
+      padding: 4px 8px;
+    }
+  }
+
   .btn_wrap {
     text-align: right;
   }
@@ -69,7 +108,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
   }
 
   a {
@@ -132,7 +170,7 @@
 @section('content')
 
 <div class="wrap">
-  
+
   @if (@isset($items))
   @foreach ($items as $item)
   <div class="card">

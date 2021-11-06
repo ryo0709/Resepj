@@ -28,10 +28,6 @@ class ShopController extends Controller
         $shop_id = $shop->id;
         $query->where('shop_id', "$shop_id");
         $reviews = $query->get();
-        $date = null;
-        $time = null;
-        $datetime = null;
-        $num = null;
 
         if($user !== null) {//ログインしている
         $user_id = $user->id;
@@ -44,10 +40,6 @@ class ShopController extends Controller
         $param = [
             'shop' => $shop,
             'user' => $user,
-            'date' => $date,
-            'time' => $time,
-            'datetime' => $datetime,
-            'num' => $num,
             'reviews' => $reviews,
             'reservation' => $reservation,
             'user_review' => $user_review,
@@ -58,10 +50,6 @@ class ShopController extends Controller
             $param = [
                 'shop' => $shop,
                 'user' => $user,
-                'date' => $date,
-                'time' => $time,
-                'datetime' => $datetime,
-                'num' => $num,
                 'reviews' => $reviews,
                 'reservation' => $reservation
             ];
@@ -77,17 +65,9 @@ class ShopController extends Controller
         $query_reservation = Reservation::query();
         $query_reservation->where('shop_id', "$shop_id")->where('user_id', "$user_id");
         $reservation = $query_reservation->get();
-        $date = null;
-        $time = null;
-        $datetime = null;
-        $num = null;
         $param = [
             'shop' => $shop,
             'user' => $user,
-            'date' => $date,
-            'time' => $time,
-            'datetime' => $datetime,
-            'num' => $num,
             'reservation' => $reservation
         ];
         return view('detail', $param);

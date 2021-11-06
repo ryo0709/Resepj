@@ -3,23 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use App\Http\Requests\ReservationRequest;
 use Illuminate\Http\Request;
-use App\Models\Shop;
-use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
-    public function reservation(Request $request)
+    public function reservation(ReservationRequest $request)
     {
-        $validate_rule = [
-            'user_id' => 'required',
-            'shop_id' => 'required',
-            'date' => 'required',
-            'time' => 'required',
-            'num_of_users' => 'required',
-        ];
-        $this->validate($request, $validate_rule);
-
         $user_id = $request->user_id;
         $shop_id = $request->shop_id;
         $date = $request->date;

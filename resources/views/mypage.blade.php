@@ -139,6 +139,7 @@
 
   .section_detail {
     color: white;
+    padding-right: 5px;
   }
 
   .clock {
@@ -158,7 +159,7 @@
   }
 
   .resevation_header_tit h2 {
-    padding-left: 40px;
+    padding-left: 20px;
     color: white;
   }
 
