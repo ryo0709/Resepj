@@ -27,7 +27,7 @@ class ShopController extends Controller
         $query = Review::query();
         $shop_id = $shop->id;
         $query->where('shop_id', "$shop_id");
-        $reviews = $query->orderBy('created_at', 'asc')->get();
+        $reviews = $query->orderBy('updated_at', 'desc')->get();
 
         if($user !== null) {//ログインしている
         $user_id = $user->id;
@@ -47,11 +47,13 @@ class ShopController extends Controller
         return view('detail', $param);
     } else { //ログインしてない
             $reservation =null;
+            $user_review =null;
             $param = [
                 'shop' => $shop,
                 'user' => $user,
                 'reviews' => $reviews,
-                'reservation' => $reservation
+                'reservation' => $reservation,
+                'user_review' => $user_review,
             ];
             return view('detail', $param);
     }
