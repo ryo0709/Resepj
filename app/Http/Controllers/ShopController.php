@@ -27,7 +27,7 @@ class ShopController extends Controller
         $query = Review::query();
         $shop_id = $shop->id;
         $query->where('shop_id', "$shop_id");
-        $reviews = $query->get();
+        $reviews = $query->orderBy('created_at', 'asc')->get();
 
         if($user !== null) {//ログインしている
         $user_id = $user->id;

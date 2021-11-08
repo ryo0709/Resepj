@@ -305,6 +305,9 @@
   .likes_title_second {
     display: none;
   }
+  .close {
+    cursor: pointer;
+  }
 
   @media screen and (max-width: 1080px) {
     .btn {
@@ -345,6 +348,7 @@
     .resevation-detail {
       width: 45%;
       margin-right: 2px;
+      line-height: 22px;
     }
 
     .mypage_content_title {
@@ -397,6 +401,23 @@
     .likes_title_second {
       display: block;
     }
+
+    .resevation_change {
+      width: 50%;
+      height: 50%;
+    }
+
+    .reservation_detail_wrap {
+      padding: 5px;
+    }
+    .item {
+      width: 70px;
+    }
+
+  }
+
+  .modal {
+    cursor: pointer;
   }
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -452,12 +473,11 @@
   </div>
 </div>
 
-
 <div class="content">
   <div class="reservation">
     <?php $i = 1; ?>
-    @foreach ($items as $item)
-    @foreach($item->reservations as $obj)
+    @foreach($reservations as $reservation)
+    <!-- {{$start_at = $reservation->start_at}} -->
     <div class="resevation-detail " id="modal({{$loop->index}})">
       <div class="resevation_header">
         <div class="resevation_header_tit">
@@ -465,8 +485,9 @@
           <h2>予約{{$i}} <?php $i++; ?></h2>
         </div> <!-- resevation_header_tit -->
         <div class="tool">
-          <div class="modal" data-target="{{$loop->index}}"><i class="fa fa-paperclip fa-lg"></i></div>
-          <form method="POST" action="{{ route('delete', ['resevation_id' => $obj->id,]) }}" onsubmit="return confirm_test()">
+          <div class="modal" data-target="{{$loop->index}}"><i class="fa fa-paperclip fa-lg"></i>
+          </div>
+          <form method="POST" action="{{ route('delete', ['resevation_id' => $reservation->id,]) }}" onsubmit="return confirm_test()">
             @csrf
             <input class="round_btn" type="submit" value="×">
           </form>
@@ -474,10 +495,9 @@
       </div><!-- resevation_header -->
       <div class="section">
         <p class="section_name">Shop</p>
-        <p class="section_detail">{{$obj->shop->name}}</p>
+        <p class="section_detail">{{$reservation->shop->name}}</p>
       </div>
       <div class="section">
-        <!-- {{$start_at = $obj->start_at}} -->
         <p class="section_name">Date</p>
         <p class="section_detail">{{date("Y/m/d",strtotime($start_at))}}</p>
       </div>
@@ -487,7 +507,7 @@
       </div>
       <div class="section">
         <p class="section_name">Number</p>
-        <p class="section_detail">{{$obj->num_of_users.'人'}}</p>
+        <p class="section_detail">{{$reservation->num_of_users.'人'}}</p>
       </div>
       <div id="modal{{$loop->index}}" class="resevation_change">
         <div class="resevation_change_tit">
@@ -499,10 +519,10 @@
           <!-- resevation_change -->
           <!-- {{$date = date("Y-m-d",strtotime($start_at))}} -->
           <!-- {{$time = date("H:i",strtotime($start_at))}} -->
-          <!-- {{$num_of_users =  $obj->num_of_users}} -->
+          <!-- {{$num_of_users =  $reservation->num_of_users}} -->
           <input name="user_id" value="{{$user->id}}" type="hidden">
-          <input name="id" value="{{$obj->id}}" type="hidden">
-          <input name="shop_id" value="{{$obj->shop->id}}" type="hidden">
+          <input name="id" value="{{$reservation->id}}" type="hidden">
+          <input name="shop_id" value="{{$reservation->shop->id}}" type="hidden">
           <div>
             @error('date')
             <p style="color:red;">{{$message}}</p>
@@ -517,6 +537,13 @@
               <option value="17:00" @if($time==="17:00" )selected @endif>17:00</option>
               <option value="17:30" @if($time==="17:30" )selected @endif>17:30</option>
               <option value="18:00" @if($time==="18:00" )selected @endif>18:00</option>
+              <option value="18:30" @if($time==="18:30" )selected @endif>18:30</option>
+              <option value="19:00" @if($time==="19:00" )selected @endif>19:00</option>
+              <option value="19:30" @if($time==="19:30" )selected @endif>19:30</option>
+              <option value="20:00" @if($time==="20:00" )selected @endif>20:00</option>
+              <option value="20:30" @if($time==="20:30" )selected @endif>20:30</option>
+              <option value="21:00" @if($time==="21:00" )selected @endif>21:00</option>
+              <option value="21:30" @if($time==="21:30" )selected @endif>21:30</option>
             </select>
           </div>
           <div>
@@ -527,13 +554,20 @@
               <option value="1" @if($num_of_users===1 ) selected @endif>1人</option>
               <option value="2" @if($num_of_users===2 ) selected @endif>2人</option>
               <option value="3" @if($num_of_users===3 ) selected @endif>3人</option>
+              <option value="4" @if($num_of_users===4 ) selected @endif>4人</option>
+              <option value="5" @if($num_of_users===5 ) selected @endif>5人</option>
+              <option value="6" @if($num_of_users===6 ) selected @endif>6人</option>
+              <option value="7" @if($num_of_users===7 ) selected @endif>7人</option>
+              <option value="8" @if($num_of_users===8 ) selected @endif>8人</option>
+              <option value="9" @if($num_of_users===9 ) selected @endif>9人</option>
+              <option value="10" @if($num_of_users===10 ) selected @endif>10人</option>
             </select>
           </div>
           <div class="reservation_detail">
             <div class="reservation_detail_wrap">
               <div class="item_wrap">
                 <p class="item">Shop</p>
-                <p style="color:white;">{{$obj->shop->name}}</p>
+                <p style="color:white;">{{$reservation->shop->name}}</p>
               </div>
               <div class="item_wrap">
                 <p class="item">Date</p>
@@ -546,7 +580,6 @@
               <div class="item_wrap">
                 <p class="item">Number</p>
                 <p style="color:white;" class="pNum"></p>
-
               </div>
             </div>
           </div>
@@ -585,7 +618,6 @@
         $('.pNum').text(change_num_of_users + '人');
       });
     </script>
-    @endforeach
   </div><!-- reservation -->
   <div class="liked-shop">
     <div class="likes_title_second">

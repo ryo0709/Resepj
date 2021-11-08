@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use App\Models\Reserve;
 use App\Models\User;
+use App\Models\Reservation;
 use App\Models\Shop;
 
 use Illuminate\Http\Request;
@@ -41,12 +41,14 @@ class UserController extends Controller
     }
     public function mypage(Request $request)
     {
-
         $user = Auth::user();
-        
         $items = User::find($user);
-        $param = ['user' => $user, 'items' => $items,  ];
-
+        $today = date("Y-m-d H:i:s", strtotime("+1 hours"));
+        $user_id = $user->id;
+        $query_reservation = Reservation::query();
+        $query_reservation->where('user_id', "$user_id")->where('start_at', '>' ,"$today");
+        $reservations = $query_reservation->orderBy('start_at', 'asc')->get();
+        $param = ['user' => $user, 'items' => $items, 'reservations' => $reservations  ];
         if (Auth::check()) {
             // ログイン済みのときの処理
             return view('mypage', $param);

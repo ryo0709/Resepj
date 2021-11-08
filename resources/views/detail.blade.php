@@ -226,9 +226,8 @@
   }
 
   .user_review {
-    border-bottom: 1px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
     padding-top: 12px;
-    border-collapse: collapse;
   }
 
   .star {
@@ -245,12 +244,11 @@
     margin-bottom: 10px;
     padding-bottom: 10px;
     cursor: pointer;
-    border-bottom: 1px solid #CCCCCC;
+
   }
 
   .review_change {
     margin-bottom: 20px;
-    border-bottom: 1px solid #CCCCCC;
   }
 
   .flexAlignCenter {
@@ -401,6 +399,13 @@
                 <option value="17:00" @if(old('time')=='17:00' )selected @endif>17:00</option>
                 <option value="17:30" @if(old('time')=='17:30' )selected @endif>17:30</option>
                 <option value="18:00" @if(old('time')=='18:00' )selected @endif>18:00</option>
+                <option value="18:30" @if(old('time')==="18:30" )selected @endif>18:30</option>
+                <option value="19:00" @if(old('time')==="19:00" )selected @endif>19:00</option>
+                <option value="19:30" @if(old('time')==="19:30" )selected @endif>19:30</option>
+                <option value="20:00" @if(old('time')==="20:00" )selected @endif>20:00</option>
+                <option value="20:30" @if(old('time')==="20:30" )selected @endif>20:30</option>
+                <option value="21:00" @if(old('time')==="21:00" )selected @endif>21:00</option>
+                <option value="21:30" @if(old('time')==="21:30" )selected @endif>21:30</option>
               </select>
             </div>
             <div>
@@ -409,9 +414,16 @@
               @enderror
               <select name="num_of_users" id="num">
                 <option value=""></option>
-                <option value="1" @if(old('num_of_users')=='1' ) selected @endif>1人</option>
-                <option value="2" @if(old('num_of_users')=='2' ) selected @endif>2人</option>
-                <option value="3" @if(old('num_of_users')=='3' ) selected @endif>3人</option>
+                <option value="1" @if(old('num_of_users')==1 ) selected @endif>1人</option>
+                <option value="2" @if(old('num_of_users')==2 ) selected @endif>2人</option>
+                <option value="3" @if(old('num_of_users')==3 ) selected @endif>3人</option>
+                <option value="4" @if(old('num_of_users')===4 ) selected @endif>4人</option>
+                <option value="5" @if(old('num_of_users')===5 ) selected @endif>5人</option>
+                <option value="6" @if(old('num_of_users')===6 ) selected @endif>6人</option>
+                <option value="7" @if(old('num_of_users')===7 ) selected @endif>7人</option>
+                <option value="8" @if(old('num_of_users')===8 ) selected @endif>8人</option>
+                <option value="9" @if(old('num_of_users')===9 ) selected @endif>9人</option>
+                <option value="10" @if(old('num_of_users')===10 ) selected @endif>10人</option>
               </select>
             </div>
           </div>
@@ -501,7 +513,10 @@
         });
       });
     </script>
-    @if ($reservation !==null && $user_review !==null) <p class="review_toggle ">レビューを変更する</p>
+    @if ($reservation !==null && $user_review !==null)
+    <!-- {{$created_at = $user_review->created_at}} -->
+    <p style="margin-bottom:10px;">{{date("Y/m/d",strtotime($created_at))}}にレビュー済み</p>
+    <p class="review_toggle ">レビューを変更する</p>
     <div class="review_change" style="display:none;">
       <!-- {{$rate = $user_review->rate }} -->
       <form method="post" action="/review_change">
@@ -552,15 +567,15 @@
         </div>
 
         <div class="rate-form">
-          <input id="star5" type="radio" name="rate" value="5">
+          <input id="star5" type="radio" name="rate" value="5" @if(old("rate")==5 )checked @endif>
           <label for="star5">★</label>
-          <input id="star4" type="radio" name="rate" value="4">
+          <input id="star4" type="radio" name="rate" value="4" @if(old("rate")==4 )checked @endif>
           <label for="star4">★</label>
-          <input id="star3" type="radio" name="rate" value="3">
+          <input id="star3" type="radio" name="rate" value="3" @if(old("rate")==3 )checked @endif>
           <label for="star3">★</label>
-          <input id="star2" type="radio" name="rate" value="2">
+          <input id="star2" type="radio" name="rate" value="2" @if(old("rate")==2 )checked @endif>
           <label for="star2">★</label>
-          <input id="star1" type="radio" name="rate" value="1">
+          <input id="star1" type="radio" name="rate" value="1" @if(old("rate")==1 )checked @endif>
           <label for="star1">★</label>
         </div style="aligin-item:center;"><!-- rate-form -->
       </div><!-- rate -->
@@ -568,9 +583,9 @@
         @error('coment')
         <p style="color:red;">{{$message}}</p>
         @enderror
-        <textarea name="coment" rows="4" cols="100" placeholder="レビューを入力する"></textarea>
+        <textarea name="coment" rows="4" cols="100" placeholder="レビューを入力する">{{ old('coment') }}</textarea>
       </div>
-      <input type="submit" value="コメント">
+      <input type="submit" value="レビュー">
       </form>
       <!--action="/review" -->
       @endif

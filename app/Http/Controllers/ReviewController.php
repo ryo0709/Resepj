@@ -13,32 +13,8 @@ class ReviewController extends Controller
 {
     public function review(ReviewRequest $request)
     {
-        
         $form = $request->all();
         Review::create($form);
-
-        // $user = Auth::user();
-        // $shop_id = $request->shop_id;
-        // $shop = Shop::find ($shop_id);
-        // $query = Review::query();
-        // $query->where('shop_id',
-        //     "$shop_id"
-        // );
-        // $reviews = $query->get();
-        //     $user_id = $user->id;
-        //     $query_reservation = Reservation::query();
-        //     $query_reservation->where('shop_id', "$shop_id")->where('user_id', "$user_id");
-        //     $reservation = $query_reservation->orderBy('start_at', 'asc')->first();
-        //     $user_review_query = Review::query();
-        //     $user_review_query->where('shop_id', "$shop_id")->where('user_id', "$user_id");
-        //     $user_review = $user_review_query->first();
-        //     $param = [
-        //         'shop' => $shop,
-        //         'user' => $user,
-        //         'reviews' => $reviews,
-        //         'reservation' => $reservation,
-        //         'user_review' => $user_review,
-        //     ];
             return back();
     }
     public function review_change(ReviewRequest $request)

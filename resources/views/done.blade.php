@@ -38,7 +38,7 @@
 <div class="section">
   <p>ご予約ありがとうございます。</p>
   <div class="btn_wrap">
-    <a class="btn" href="/">戻る</a>
+    <a class="btn" href="/mypage">戻る</a>
   </div>
 </div>
 @endsection
