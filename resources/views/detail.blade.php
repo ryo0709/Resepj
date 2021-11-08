@@ -514,8 +514,8 @@
       });
     </script>
     @if ($reservation !==null && $user_review !==null)
-    <!-- {{$created_at = $user_review->created_at}} -->
-    <p style="margin-bottom:10px;">{{date("Y/m/d",strtotime($created_at))}}にレビュー済み</p>
+    <!-- {{$updated_at = $user_review->updated_at}} -->
+    <p style="margin-bottom:10px;">{{date("Y/m/d",strtotime($updated_at))}}にレビュー済み</p>
     <p class="review_toggle ">レビューを変更する</p>
     <div class="review_change" style="display:none;">
       <!-- {{$rate = $user_review->rate }} -->
@@ -592,6 +592,7 @@
       @foreach( $reviews as $review)
       <div class="user_review">
         <p style="margin-bottom:10px;">{{$review->user->name}}</p>
+        <p style="margin-bottom:10px;">{{date("Y/m/d",strtotime($updated_at))}}にレビュー済み</p>
         <div class="rate-form" style="margin-bottom:10px;">
           @if($review->rate === 1)
           <p class="no_star">★★★★</p>
