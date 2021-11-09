@@ -157,7 +157,7 @@
         height: 20px;
         width: 100%;
       }
-      
+
     }
 
     @media screen and (min-width: 786px) {
@@ -244,25 +244,23 @@
         <h2>Rese</h2>
       </div>
     </div>
-
     <div class="search">
       <form action="area_search" method="GET">
         @csrf
         <select name="area_id" id="area">
           <option value="" style="display:none;">All area</option>
-          <option value="0">All area</option>
-          <option value="1">東京都</option>
-          <option value="2">大阪府</option>
-          <option value="3">福岡県</option>
+          <option value=0>All area</option>
+          <option value=1 @if($select_area_id==1) selected @endif>東京都</option>
+          <option value=2 @if($select_area_id==2) selected @endif>大阪府</option>
+          <option value=3 @if($select_area_id==3) selected @endif>福岡県</option>
         </select>
         <select name="genre_id" id="genre">
-          <option value="" style="display:none;">All genre</option>
-          <option value="0">All genre</option>
-          <option value="1">寿司</option>
-          <option value="2">焼肉</option>
-          <option value="3">居酒屋</option>
-          <option value="4">ラーメン</option>
-          <option value="5">イタリアン</option>
+          <option value=0>All genre</option>
+          <option value=1>寿司</option>
+          <option value=2>焼肉</option>
+          <option value=3>居酒屋</option>
+          <option value=4>イタリアン</option>
+          <option value=5>ラーメン</option>
         </select>
         <i class="fas fa-search search_icon"></i>
         <input type="text" name="name" placeholder="Search" id="name">
@@ -283,66 +281,47 @@
           .done(function(json) {
             $('body').empty();
             $('body').append(json)
-            // alert('ajax成功');
-            // $('.wrap').empty();
-
-            // console.log(data);
-            // let html = '';
-            // for (var i = 0; i > data.length; i++) {
-            //   console.log(data);
-            //   $.each(data, function(index, value) {
-            //     let name = value.name;
-            //     html = `
-            //       <div style="background-color:red;" class="card">
-            //       <h2 class="title">${name}</h2>
-            //       `
-            //   });
-            // }
-            // $('.wrap').append(html)
-            // console.log(JSON.stringify(items));
-            // var json = JSON.parse(JSON.stringify(data));
-            // $obj = json_decode($json, false);
-            // for (let i = 0; i < 9; i++) {
-            //   str = str + i;
-            // }
           }).fail(function(json) {
             alert('ajax失敗');
           });
       });
       $('#genre').change(function() {
         var genre_id = $('#genre').val();
-        $.ajax({
-            url: '/genre_search',
-            method: 'get',
-            async: true,
-            data: {
-              'genre_id': genre_id,
-            },
-          })
-          .done(function(json) {
-            $('body').empty();
-            $('body').append(json)
-          }).fail(function(json) {
-            alert('ajax失敗');
-          });
+        if (genre_id == 0) {
+          $('.genre_id1, .genre_id2, .genre_id3, .genre_id4, .genre_id5').show();
+        } else if (genre_id !== 0) {
+          for (var i = 0; i <= 5; i++) {
+            var hide_genre = '.' + 'genre_id' + i;
+            var show_genre = '.' + 'genre_id' + genre_id;
+            $(hide_genre).hide();
+            if (i == genre_id) {
+              continue;
+            }
+          }
+          $(show_genre).show();
+        }
       });
-      $('#name').change(function() {
-        var name = $('#name').val();
-        $.ajax({
-            url: '/name_search',
-            method: 'get',
-            async: true,
-            data: {
-              'name': name,
-            },
-          })
-          .done(function(json) {
-            $('body').empty();
-            $('body').append(json)
-          }).fail(function(json) {
-            alert('ajax失敗');
-          });
+      $('#name').keypress(function(e) {
+        if (e.which == 13) {
+          alert('aaaaaaaaa')
+        }
       });
+      // $('#name').change(function() {
+      //   var name = $('#name').val();
+      //   $.ajax({
+      //       url: '/name_search',
+      //       method: 'get',
+      //       async: true,
+      //       data: {
+      //         'name': name,
+      //       },
+      //     })
+      //     .done(function(json) {
+      //       $('body').empty();
+      //       $('body').append(json)
+      //     }).fail(function(json) {
+      //       alert('ajax失敗');
+      //     });
+      // });
     </script>
-
 </header>

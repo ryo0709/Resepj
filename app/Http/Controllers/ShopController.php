@@ -17,7 +17,9 @@ class ShopController extends Controller
         $user = Auth::user();
         $items = Shop::all();
         $shops = Shop::all();
-        $param = ['items' => $items, 'user' => $user, 'shops' => $shops];
+        $area_id = null;
+        $select_area_id = null;
+        $param = ['items' => $items, 'user' => $user, 'shops' => $shops, 'area_id' => $area_id ,'select_area_id' => $select_area_id];
         return view('index', $param);
     }
     public function detail($id)
@@ -78,38 +80,19 @@ class ShopController extends Controller
     public function area_search(Request $request)
     {
         $area_id = $request->area_id;
+        $select_area_id = $area_id;
         if ($area_id === "0") {
-            $user = Auth::user();
-            $items = Shop::all();
-            $shops = Shop::all();
-            $param = ['items' => $items, 'user' => $user, 'shops' => $shops];
-            return view('index', $param);
+            return back();
         } else {
             $query = Shop::query();
             $query->where('area_id', "$area_id");
             $items = $query->get();
             $user = Auth::user();
-            $param = ['items' => $items, 'user' => $user,];
+            $param = ['items' => $items, 'user' => $user,'select_area_id'=> $select_area_id];
             return view('index', $param);
         }
     }
-    public function genre_search(Request $request)
-    {
-        $genre_id = $request->genre_id;
-        if ($genre_id === "0") {
-            $items = Shop::all();
-            $user = Auth::user();
-            $param = ['items' => $items, 'user' => $user,];
-            return view('index', $param);
-        } else {
-            $query = Shop::query();
-            $query->where('genre_id', "$genre_id");
-            $items = $query->get();
-            $user = Auth::user();
-            $param = ['items' => $items, 'user' => $user,];
-            return view('index', $param);
-        }
-    }
+     
     public function name_search(Request $request)
     {
         $name = $request->name;

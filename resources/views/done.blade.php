@@ -42,3 +42,41 @@
   </div>
 </div>
 @endsection
+
+
+
+<script>
+  $('#area').change(function() {
+    var area_id = $('#area').val();
+    $.ajax({
+        url: '/area_search',
+        method: 'get',
+        async: true,
+        data: {
+          'area_id': area_id,
+        },
+      })
+      .done(function(json) {
+        $('body').empty();
+        $('body').append(json)
+      }).fail(function(json) {
+        alert('ajax失敗');
+      });
+  });
+  $('#genre').change(function() {
+    var genre_id = $('#genre').val();
+
+    if (genre_id !== 0) {
+      for (var i = 0; i <= 5; i++) {
+        var hide_genre = '.' + 'genre_id' + i;
+        var show_genre = '.' + 'genre_id' + genre_id;
+        alert(hide_genre);
+        $(hide_genre).hide();
+        if (i == genre_id) {
+          continue;
+        }
+      }
+      $(show_genre).show();
+    }
+
+  });

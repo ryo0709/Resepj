@@ -173,7 +173,7 @@
 
   @if (@isset($items))
   @foreach ($items as $item)
-  <div class="card">
+  <div class="card area_id{{$item->area_id}} genre_id{{$item->genre_id}}" id="card">
     <div class="content-img">
       <img src="{{$item->image_url}}" />
     </div>
@@ -208,7 +208,7 @@
 <div class="wrap">
   @if (@isset($items))
   @foreach ($items as $item)
-  <div class="card">
+  <div class="card area_id{{$item->area_id}} genre_id{{$item->genre_id}}" id="card">
     <div class="content-img">
       <img src="{{$item->image_url}}" />
     </div>
