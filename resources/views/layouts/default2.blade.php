@@ -9,7 +9,7 @@
   @else
   <link rel="stylesheet" href="{{ secure_asset('css/reset.css') }}">
   @endif
-  <title>@yield('title')</title>
+  <title>RESE</title>
   <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -27,7 +27,7 @@
 <body>
   @include('layouts.header2')
 
-  <h1>@yield('title')</h1>
+  @yield('title')
   <div class="content">
     @yield('content')
 

@@ -254,19 +254,20 @@
           <option value=2 @if($select_area_id==2) selected @endif>大阪府</option>
           <option value=3 @if($select_area_id==3) selected @endif>福岡県</option>
         </select>
-        <select name="genre_id" id="genre">
-          <option value=0>All genre</option>
-          <option value=1>寿司</option>
-          <option value=2>焼肉</option>
-          <option value=3>居酒屋</option>
-          <option value=4>イタリアン</option>
-          <option value=5>ラーメン</option>
-        </select>
-        <i class="fas fa-search search_icon"></i>
-        <input type="text" name="name" placeholder="Search" id="name">
       </form>
+      <select name="genre_id" id="genre">
+        <option value=0>All genre</option>
+        <option value=1>寿司</option>
+        <option value=2>焼肉</option>
+        <option value=3>居酒屋</option>
+        <option value=4>イタリアン</option>
+        <option value=5>ラーメン</option>
+      </select>
+      <i class="fas fa-search search_icon"></i>
+
+      <input type="text" name="name" placeholder="Search" id="name" onsubmit="return false;" value="{{$name}}">
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src=" https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
       $('#area').change(function() {
         var area_id = $('#area').val();
@@ -301,27 +302,22 @@
           $(show_genre).show();
         }
       });
-      $('#name').keypress(function(e) {
-        if (e.which == 13) {
-          alert('aaaaaaaaa')
-        }
+      $('#name').change(function() {
+        var name = $('#name').val();
+        $.ajax({
+            url: '/name_search',
+            method: 'get',
+            async: true,
+            data: {
+              'name': name,
+            },
+          })
+          .done(function(json) {
+            $('body').empty();
+            $('body').append(json)
+          }).fail(function(json) {
+            alert('ajax失敗');
+          });
       });
-      // $('#name').change(function() {
-      //   var name = $('#name').val();
-      //   $.ajax({
-      //       url: '/name_search',
-      //       method: 'get',
-      //       async: true,
-      //       data: {
-      //         'name': name,
-      //       },
-      //     })
-      //     .done(function(json) {
-      //       $('body').empty();
-      //       $('body').append(json)
-      //     }).fail(function(json) {
-      //       alert('ajax失敗');
-      //     });
-      // });
     </script>
 </header>
