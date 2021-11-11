@@ -50,6 +50,7 @@
     align-items: center;
     display: flex;
     flex-wrap: wrap;
+    padding-top: 80px;
   }
 
   .btn {
@@ -132,6 +133,36 @@
 
   .liked {
     color: red;
+  }
+
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+  }
+
+  .no_heart {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 360px;
+    padding: 30px 40px;
+    background-color: #E6E6E6;
+    border-radius: 5px;
+    z-index: 11;
+  }
+
+  .no_heart p {
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 600;
   }
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -224,7 +255,7 @@
         <div class="heart icon"></div>
         <div class="like">
           <span class="likes">
-            <a href="/login"><i class="fas fa-heart like-toggle like-btn"></i> </a>
+            <i class="fas fa-heart like-btn heart-btn"></i>
           </span><!-- /.likes -->
         </div>
       </div>
@@ -234,4 +265,23 @@
   @endif
 </div>
 @endif
+<div id="overlay" class="overlay"></div>
+<div class="no_heart" style="display:none;">
+  <p>お気に入り登録するにはログインをして下さい。</p>
+  <p><a href="/login">（ログイン</a>｜
+  <a href="/register">登録</a>）</p>
+</div>
+<script>
+  $('.heart-btn').on('click', function() {
+    $(this).toggleClass('active');
+    $('#overlay').fadeIn();
+    $(".no_heart").addClass('active');
+    $(".no_heart").fadeIn(500);
+    $('#overlay,#close').click(function() {
+      $('#overlay').fadeOut();
+      $('.no_heart').removeClass('active');
+      $('.no_heart').fadeOut(500);
+    });
+  });
+</script>
 @endsection

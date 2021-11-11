@@ -30,6 +30,8 @@
     border: solid 1px #BBBBBB;
     border-radius: 5px;
     box-shadow: 1px 1px 1px #BBB;
+    margin-left: 15%;
+    position: fixed;
   }
 </style>
 

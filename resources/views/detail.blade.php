@@ -46,6 +46,7 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    padding-top: 80px;
   }
 
   .reservation {
@@ -589,6 +590,7 @@
       </form>
       <!--action="/review" -->
       @endif
+      @if ($reviews->count()== 0)<p>レビューはまだありません。</p>@else @endif
       @foreach( $reviews as $review)
       <!-- {{$updated_at = $review->updated_at}} -->
       <div class="user_review">

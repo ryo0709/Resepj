@@ -8,10 +8,10 @@
     /*ナビのスタイル*/
     nav.NavMenu {
       position: fixed;
-      z-index: 12;
+
       top: 0;
       left: 0;
-      background: white;
+      background-color: #E6E6E6;
       text-align: center;
       width: 100%;
       height: 100%;
@@ -53,13 +53,18 @@
     }
 
     /*ボタンのスタイル*/
+    .header {
+      position: fixed;
+      z-index: 1;
+      background-color: #E6E6E6;
+    }
+
     .Toggle {
       position: fixed;
-      top: 5px;
       width: 45px;
       height: 45px;
       cursor: pointer;
-      z-index: 13;
+      z-index: 1300;
       display: block;
       background-color: #0033FF;
       border: solid 1px #BBBBBB;
@@ -124,7 +129,7 @@
 
     .flex {
       height: 80px;
-      width: 73%;
+      width: 74.5%;
       display: flex;
       align-items: center;
       padding: 0 12%;
@@ -204,6 +209,11 @@
         $('.Toggle').removeClass('active');
       });
     });
+    $(function() {
+      $('.Toggle').click(function() {
+        $('.search').toggle();
+      });
+    });
   </script>
   <!-- ナビメニュー -->
   <nav class="NavMenu">
@@ -235,7 +245,7 @@
   </nav>
 
   <!-- メニュー -->
-  <div class="flex">
+  <div class="flex header">
     <div class="Toggle">
       <span class="toggle-span span span1"></span>
       <span class="span span2"></span>
@@ -243,7 +253,9 @@
       <div class="header_title">
         <h2>Rese</h2>
       </div>
+      <!--header_title -->
     </div>
+    <!--Toggle -->
     <div class="search">
       <form action="area_search" method="GET">
         @csrf
@@ -264,60 +276,63 @@
         <option value=5>ラーメン</option>
       </select>
       <i class="fas fa-search search_icon"></i>
-
       <input type="text" name="name" placeholder="Search" id="name" onsubmit="return false;" value="{{$name}}">
     </div>
-    <script src=" https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-      $('#area').change(function() {
-        var area_id = $('#area').val();
-        $.ajax({
-            url: '/area_search',
-            method: 'get',
-            async: true,
-            data: {
-              'area_id': area_id,
-            },
-          })
-          .done(function(json) {
-            $('body').empty();
-            $('body').append(json)
-          }).fail(function(json) {
-            alert('ajax失敗');
-          });
-      });
-      $('#genre').change(function() {
-        var genre_id = $('#genre').val();
-        if (genre_id == 0) {
-          $('.genre_id1, .genre_id2, .genre_id3, .genre_id4, .genre_id5').show();
-        } else if (genre_id !== 0) {
-          for (var i = 0; i <= 5; i++) {
-            var hide_genre = '.' + 'genre_id' + i;
-            var show_genre = '.' + 'genre_id' + genre_id;
-            $(hide_genre).hide();
-            if (i == genre_id) {
-              continue;
-            }
+    <!--search -->
+  </div>
+  <!--flex -->
+
+  <script src=" https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+    $('#area').change(function() {
+      var area_id = $('#area').val();
+      $.ajax({
+          url: '/area_search',
+          method: 'get',
+          async: true,
+          data: {
+            'area_id': area_id,
+          },
+        })
+        .done(function(json) {
+          $('body').empty();
+          $('body').append(json)
+        }).fail(function(json) {
+          alert('ajax失敗');
+        });
+    });
+    $('#genre').change(function() {
+      var genre_id = $('#genre').val();
+      if (genre_id == 0) {
+        $('.genre_id1, .genre_id2, .genre_id3, .genre_id4, .genre_id5').show();
+      } else if (genre_id !== 0) {
+        for (var i = 0; i <= 5; i++) {
+          var hide_genre = '.' + 'genre_id' + i;
+          var show_genre = '.' + 'genre_id' + genre_id;
+          $(hide_genre).hide();
+          if (i == genre_id) {
+            continue;
           }
-          $(show_genre).show();
         }
-      });
-      $('#name').change(function() {
-        var name = $('#name').val();
-        $.ajax({
-            url: '/name_search',
-            method: 'get',
-            async: true,
-            data: {
-              'name': name,
-            },
-          })
-          .done(function(json) {
-            $('body').empty();
-            $('body').append(json)
-          }).fail(function(json) {
-            alert('ajax失敗');
-          });
-      });
-    </script>
+        $(show_genre).show();
+      }
+    });
+    $('#name').change(function() {
+      var name = $('#name').val();
+      $.ajax({
+          url: '/name_search',
+          method: 'get',
+          async: true,
+          data: {
+            'name': name,
+          },
+        })
+        .done(function(json) {
+          $('body').empty();
+          $('body').append(json)
+        }).fail(function(json) {
+          alert('ajax失敗');
+        });
+    });
+  </script>
 </header>

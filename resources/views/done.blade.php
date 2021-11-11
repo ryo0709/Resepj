@@ -22,61 +22,34 @@
     letter-spacing: 1px;
   }
 
-  .section {
+  .done {
+    position: fixed;
     width: 300px;
     margin: 100px auto;
+    padding-top: 80px;
     background-color: white;
     padding: 50px 0;
+    margin-left: 15%;
     border: solid 1px #BBBBBB;
     border-radius: 5px;
     box-shadow: 1px 1px 1px #BBB;
+  }
+
+  .flex {
+    height: 1px;
   }
 </style>
 
 
 @section('content')
 <div class="section">
-  <p>ご予約ありがとうございます。</p>
-  <div class="btn_wrap">
-    <a class="btn" href="/mypage">戻る</a>
+  <div class="done">
+    <p>ご予約ありがとうございます。</p>
+    <div class="btn_wrap">
+      <a class="btn" href="/mypage">戻る</a>
+    </div>
   </div>
+
 </div>
+
 @endsection
-
-
-
-<script>
-  $('#area').change(function() {
-    var area_id = $('#area').val();
-    $.ajax({
-        url: '/area_search',
-        method: 'get',
-        async: true,
-        data: {
-          'area_id': area_id,
-        },
-      })
-      .done(function(json) {
-        $('body').empty();
-        $('body').append(json)
-      }).fail(function(json) {
-        alert('ajax失敗');
-      });
-  });
-  $('#genre').change(function() {
-    var genre_id = $('#genre').val();
-
-    if (genre_id !== 0) {
-      for (var i = 0; i <= 5; i++) {
-        var hide_genre = '.' + 'genre_id' + i;
-        var show_genre = '.' + 'genre_id' + genre_id;
-        alert(hide_genre);
-        $(hide_genre).hide();
-        if (i == genre_id) {
-          continue;
-        }
-      }
-      $(show_genre).show();
-    }
-
-  });

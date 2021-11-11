@@ -31,7 +31,7 @@
       z-index: 12;
       top: 0;
       left: 0;
-      background: white;
+      background-color: #E6E6E6;
       text-align: center;
       width: 100%;
       height: 100%;
@@ -72,10 +72,18 @@
       font-size: 18px;
     }
 
+    .header {
+      position: fixed;
+      z-index: 100;
+      background-color: #E6E6E6;
+      height: 80px;
+      width: 100%;
+    }
+
     /*ボタンのスタイル*/
     .Toggle {
       position: fixed;
-      top: 5px;
+      top: 17px;
       width: 45px;
       height: 45px;
       cursor: pointer;
@@ -85,6 +93,7 @@
       border: solid 1px #BBBBBB;
       border-radius: 5px;
       box-shadow: 1px 1px 1px #BBB;
+      align-items: center;
     }
 
     .Toggle span {
@@ -142,11 +151,6 @@
       width: 35px;
     }
 
-    .flex {
-      height: 80px;
-      width: 400px;
-    }
-
     .header_title {
       position: fixed;
       margin-left: 60px;
@@ -192,11 +196,11 @@
             @csrf
             <label for="logout" class="logout_text">logout<input type="submit" value="" class="logout" id="logout"></label>
 
-             <!-- <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+            <!-- <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                 {{ __('logout') }}
               </x-dropdown-link> -->
-            </form>
+          </form>
         </li>
       </ul>
     </div>
@@ -212,7 +216,7 @@
   </nav>
 
   <!-- メニュー -->
-  <div class="flex">
+  <div class="header flex">
     <div class="Toggle">
       <span class="toggle-span span span1"></span>
       <span class="span span2"></span>

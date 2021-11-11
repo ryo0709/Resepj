@@ -196,7 +196,7 @@
     /* background-color: #dfdddd; */
     background-color: #0033FF;
     border-radius: 5px;
-    z-index: 11;
+    z-index: 116;
     padding: 2rem;
   }
 
@@ -208,7 +208,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     width: 100%;
     height: 100%;
-    z-index: 10;
+    z-index: 115;
   }
 
 
@@ -305,6 +305,7 @@
   .likes_title_second {
     display: none;
   }
+
   .close {
     cursor: pointer;
   }
@@ -410,6 +411,7 @@
     .reservation_detail_wrap {
       padding: 5px;
     }
+
     .item {
       width: 70px;
     }
@@ -418,6 +420,23 @@
 
   .modal {
     cursor: pointer;
+  }
+
+  .heading {
+    padding-top: 80px;
+  }
+
+  .delete {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 360px;
+    padding: 30px 40px;
+    background-color: #E6E6E6;
+    border-radius: 5px;
+    z-index: 11;
   }
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -460,24 +479,29 @@
 
 @section('content')
 
-<div id="overlay" class="overlay"></div>
-<div class="user_name">
-  <h1>{{ $user->name . 'さん'}}</h1>
-</div>
-<div class="mypage_content_title">
-  <div class="reservation-title">
-    <h2 class="tit2">予約状況</h2>
+<div class="heading">
+  <div id="overlay" class="overlay"></div>
+  <div class="user_name">
+    <h1>{{ $user->name . 'さん'}}</h1>
   </div>
-  <div class="likes_title">
-    <h2 class="tit2">お気に入り店舗</h2>
+  <div class="mypage_content_title">
+    <div class="reservation-title">
+      <h2 class="tit2">予約状況</h2>
+    </div>
+    <div class="likes_title">
+      <h2 class="tit2">お気に入り店舗</h2>
+    </div>
   </div>
 </div>
+
 
 <div class="content">
   <div class="reservation">
     <?php $i = 1; ?>
     @foreach($reservations as $reservation)
     <!-- {{$start_at = $reservation->start_at}} -->
+
+
     <div class="resevation-detail " id="modal({{$loop->index}})">
       <div class="resevation_header">
         <div class="resevation_header_tit">
@@ -655,5 +679,4 @@
     </div><!-- <liked-shop-> -->
   </div>
 </div><!-- <flex> -->
-
 @endsection
