@@ -23,15 +23,15 @@
   }
 
   .section {
+    position: fixed;
     width: 300px;
-    margin: 100px auto;
+    top: 20%;
+    left: 35%;
     background-color: white;
     padding: 50px 0;
     border: solid 1px #BBBBBB;
     border-radius: 5px;
     box-shadow: 1px 1px 1px #BBB;
-    margin-left: 15%;
-    position: fixed;
   }
 </style>
 

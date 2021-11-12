@@ -202,30 +202,30 @@
 
 <div class="wrap">
 
-  @if (@isset($items))
-  @foreach ($items as $item)
-  <div class="card area_id{{$item->area_id}} genre_id{{$item->genre_id}} shop_name{{$item->name}}" id="card">
+  @if (@isset($shops))
+  @foreach ($shops as $shop)
+  <div class="card area_id{{$shop->area_id}} genre_id{{$shop->genre_id}}" id="card">
     <div class="content-img">
-      <img src="{{$item->image_url}}" />
+      <img src="{{$shop->image_url}}" />
     </div>
     <div class="text-box">
       <div>
         <h2 class="title">
-          {{$item->name}}
+          {{$shop->name}}
         </h2>
-        <p class="date">{{$item->getArea()}} {{$item->getGenre()}}</p>
+        <p class="date">{{$shop->getArea()}} {{$shop->getGenre()}}</p>
       </div>
       <div class="card_item">
-        <a class="btn" href="{{route('detail', ['shop_id' => $item->id,]) }}" style="color:white;">詳しく見る</a>
+        <a class="btn" href="{{route('detail', ['shop_id' => $shop->id,]) }}" style="color:white;">詳しく見る</a>
         <div class="heart icon"></div>
         <div class="like">
-          @if (!$item->isLikedBy(Auth::user()))
+          @if (!$shop->isLikedBy(Auth::user()))
           <span class="likes">
-            <i class="fas fa-heart like-toggle like-btn" data-shop-id="{{ $item->id }}" data-user-id="{{ $user->id }}"></i>
+            <i class="fas fa-heart like-toggle like-btn" data-shop-id="{{ $shop->id }}" data-user-id="{{ $user->id }}"></i>
           </span><!-- /.likes -->
           @else
           <span class="likes">
-            <i class="fas fa-heart like-toggle liked like-btn" data-shop-id="{{ $item->id }}" data-user-id="{{ $user->id }}"></i>
+            <i class="fas fa-heart like-toggle liked like-btn" data-shop-id="{{ $shop->id }}" data-user-id="{{ $user->id }}"></i>
           </span><!-- /.likes -->
           @endif
         </div>
@@ -237,21 +237,21 @@
 </div>
 @else
 <div class="wrap">
-  @if (@isset($items))
-  @foreach ($items as $item)
-  <div class="card area_id{{$item->area_id}} genre_id{{$item->genre_id}} {{$item->name}}" id="card">
+  @if (@isset($shops))
+  @foreach ($shops as $shop)
+  <div class="card area_id{{$shop->area_id}} genre_id{{$shop->genre_id}}" id="card">
     <div class="content-img">
-      <img src="{{$item->image_url}}" />
+      <img src="{{$shop->image_url}}" />
     </div>
     <div class="text-box">
       <div>
         <h2 class="title">
-          {{$item->name}}
+          {{$shop->name}}
         </h2>
-        <p class="date">{{$item->getArea()}} {{$item->getGenre()}}</p>
+        <p class="date">{{$shop->getArea()}} {{$shop->getGenre()}}</p>
       </div>
       <div class="card_item">
-        <a class="btn" href="{{ route('detail', ['shop_id' => $item->id,]) }}" style="color:white;">詳しく見る</a>
+        <a class="btn" href="{{ route('detail', ['shop_id' => $shop->id,]) }}" style="color:white;">詳しく見る</a>
         <div class="heart icon"></div>
         <div class="like">
           <span class="likes">

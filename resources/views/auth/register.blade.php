@@ -143,6 +143,10 @@
         text-align: right;
         margin: 20px;
     }
+
+    li {
+        list-style: none;
+    }
 </style>
 
 @extends('layouts.default')
@@ -161,17 +165,32 @@
         <!-- Name -->
         <div style="display:flex;">
             <div class="profile-solid icon"></div>
-            <div class="input_wrap"><input class="input" type="text" name="name" required placeholder="user name" :value="{{old('name')}}" /></div>
+            <div class="input_wrap">
+                @error('name')
+                <p style="color:red; margin-left:20px;font-size:12px;">{{$message}}</p>
+                @enderror
+                <input class="input" type="text" name="name" placeholder="user name" :value="{{old('name')}}" />
+            </div>
         </div>
         <!-- Email Address -->
         <div style="display:flex;">
             <div class="mail-solid icon"></div>
-            <div class="input_wrap"><input id="email" class="input" type="email" name="email" required placeholder="email" :value="{{old('email')}}" /></div>
+            <div class="input_wrap">
+                @error('email')
+                <p style="color:red; margin-left:20px;font-size:12px;">{{$message}}</p>
+                @enderror
+                <input id="email" class="input" name="email" placeholder="email" :value="{{old('email')}}" />
+            </div>
         </div>
         <!-- Password -->
         <div style="display:flex;">
             <div class="lock-solid icon"></div>
-            <div class="input_wrap"><input id="password" class="input" type="password" name="password" required autocomplete="new-password" placeholder="password" :value="{{old('password')}}" /></div>
+            <div class="input_wrap">
+                @error('password')
+                <p style="color:red; margin-left:20px;font-size:12px;">{{$message}}</p>
+                @enderror
+                <input id="password" class="input" type="password" name="password" autocomplete="new-password" placeholder="password" :value="{{old('password')}}" />
+            </div>
         </div>
         <div class="btn_wrap" style=" text-align: right;">
             <button type="submit" class="btn">登録</button>

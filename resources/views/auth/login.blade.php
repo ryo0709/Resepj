@@ -24,13 +24,15 @@
 
     .section {
         width: 400px;
-        margin: 200px auto;
         display: block;
         background-color: white;
         padding-bottom: 10px;
         border: solid 1px #BBBBBB;
         border-radius: 5px;
         box-shadow: 1px 1px 1px #BBB;
+        position: fixed;
+        top: 20%;
+        left: 35%;
     }
 
     .head {
@@ -122,8 +124,9 @@
         text-align: right;
         margin: 20px;
     }
-
-    
+    li {
+        list-style: none;
+    }
 </style>
 @extends('layouts.default')
 @section('content')
@@ -145,13 +148,21 @@
             <div class="mail-solid icon">
             </div>
             <div class="input_wrap">
-                <input id="email" class="input" type="email" name="email" value="{{old('email')}}" required autofocus placeholder="email" style="background-color:white;" />
+                @error('email')
+                <p style="color:red; margin-left:20px;font-size:12px;">{{$message}}</p>
+                @enderror
+                <input id="email" class="input" type="email" name="email" value="{{old('email')}}" autofocus placeholder="email" style="background-color:white;" />
             </div>
         </div>
         <!-- Password -->
         <div style="display:flex;">
             <div class="lock-solid icon"></div>
-            <div class="input_wrap"><input id="password" class="input" type="password" name="password" required autocomplete="current-password" placeholder="password" :value="{{old('password')}}" /></div>
+            <div class="input_wrap">
+                @error('password')
+                <p style="color:red; margin-left:20px;font-size:12px;">{{$message}}</p>
+                @enderror
+                <input id="password" class="input" type="password" name="password" autocomplete="current-password" placeholder="password" :value="{{old('password')}}" />
+            </div>
         </div>
         <div class="btn_wrap" style=" text-align: right;">
             <button type="submit" class="btn">ログイン</button>

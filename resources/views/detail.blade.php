@@ -112,7 +112,7 @@
   }
 
   .reservation_wrap {
-    padding: 0 40px;
+    padding: 0 15px;
   }
 
   .reservation_title {
@@ -318,23 +318,6 @@
 
     .wrap {
       display: block;
-    }
-  }
-
-  @media screen and (min-width: 769px) {
-
-    .reservation,
-    .user_review {
-      display: block;
-    }
-
-    .reservation,
-    .card {
-      width: 50%;
-    }
-
-    .wrap {
-      display: flex;
     }
   }
 </style>

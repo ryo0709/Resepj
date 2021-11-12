@@ -11,7 +11,7 @@
 
       top: 0;
       left: 0;
-      background-color: #E6E6E6;
+      background-color: white;
       text-align: center;
       width: 100%;
       height: 100%;
@@ -57,6 +57,12 @@
       position: fixed;
       z-index: 1;
       background-color: #E6E6E6;
+      height: 80px;
+      width: 74.4%;
+      display: flex;
+      align-items: center;
+      margin-left: 12%;
+      padding-right: 8px;
     }
 
     .Toggle {
@@ -127,14 +133,6 @@
       width: 35px;
     }
 
-    .flex {
-      height: 80px;
-      width: 74.5%;
-      display: flex;
-      align-items: center;
-      padding: 0 12%;
-    }
-
     .header_title {
       margin-left: 60px;
     }
@@ -153,16 +151,20 @@
       box-shadow: 1px 1px 1px #BBB;
       height: 40px;
       align-items: center;
+      margin-right: 20px;
     }
 
     @media screen and (max-width: 785px) {
       .search {
-        margin-top: 70px;
+        margin-top: 80px;
         margin-bottom: 20px;
         height: 20px;
         width: 100%;
       }
 
+      .header {
+        width: 75%;
+      }
     }
 
     @media screen and (min-width: 786px) {
@@ -186,6 +188,10 @@
 
     .search_icon {
       color: #BBBBBB;
+    }
+
+    .white {
+      background-color: white;
     }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -212,6 +218,8 @@
     $(function() {
       $('.Toggle').click(function() {
         $('.search').toggle();
+        $('.header').css('background-color', '');
+        $('.header').toggleClass('white');
       });
     });
   </script>

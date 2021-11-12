@@ -31,7 +31,7 @@
       z-index: 12;
       top: 0;
       left: 0;
-      background-color: #E6E6E6;
+      background-color: white;
       text-align: center;
       width: 100%;
       height: 100%;
@@ -161,6 +161,10 @@
       color: #0033FF;
       font-size: 36px;
     }
+
+    .white {
+      background-color: white;
+    }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
@@ -183,6 +187,12 @@
         $('.Toggle').removeClass('active');
       });
     });
+    $(function() {
+      $('.Toggle').click(function() {
+        $('.header').css('background-color', '');
+        $('.header').toggleClass('white');
+      });
+    });
   </script>
   <!-- ナビメニュー -->
   <nav class="NavMenu">
@@ -196,10 +206,7 @@
             @csrf
             <label for="logout" class="logout_text">logout<input type="submit" value="" class="logout" id="logout"></label>
 
-            <!-- <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                {{ __('logout') }}
-              </x-dropdown-link> -->
+            
           </form>
         </li>
       </ul>

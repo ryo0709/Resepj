@@ -129,7 +129,7 @@
   }
 
   .section_name {
-    margin-right: 40px;
+    margin-right: 15px;
     padding-left: 40px;
     width: 80px;
     font-weight: bold;
@@ -329,7 +329,7 @@
     }
   }
 
-  @media screen and (max-width: 785px) {
+  @media screen and (max-width: 768px) {
 
 
     .title {

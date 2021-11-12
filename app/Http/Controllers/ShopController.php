@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shop;
-use App\Models\Area;
 use App\Models\Reservation;
 use App\Models\Review;
 use Illuminate\Http\Request;
@@ -15,12 +14,11 @@ class ShopController extends Controller
     {
 
         $user = Auth::user();
-        $items = Shop::all();
         $shops = Shop::all();
         $area_id = null;
         $select_area_id = null;
         $name =null;
-        $param = ['items' => $items, 'user' => $user, 'shops' => $shops, 'area_id' => $area_id, 'select_area_id' => $select_area_id, 'name' => $name];
+        $param = ['user' => $user, 'shops' => $shops, 'area_id' => $area_id, 'select_area_id' => $select_area_id, 'name' => $name];
         return view('index', $param);
     }
     public function detail($id)
@@ -88,9 +86,9 @@ class ShopController extends Controller
         } else {
             $query = Shop::query();
             $query->where('area_id', "$area_id");
-            $items = $query->get();
+            $shops = $query->get();
             $user = Auth::user();
-            $param = ['items' => $items,
+            $param = ['shops' => $shops,
                         'user' => $user,
                         'select_area_id' => $select_area_id,
                         'name' => $name];
@@ -104,9 +102,9 @@ class ShopController extends Controller
         $select_area_id = null;
         $query = Shop::query();
         $query->where('name', 'LIKE', "%{$name}%");
-        $items = $query->get();
+        $shops = $query->get();
         $user = Auth::user();
-        $param = ['items' => $items, 'user' => $user, 'select_area_id' => $select_area_id, 'name' => $name];
+        $param = ['shops' => $shops, 'user' => $user, 'select_area_id' => $select_area_id, 'name' => $name];
         return view('index', $param);
     }
 }
