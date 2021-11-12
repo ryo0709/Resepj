@@ -28,7 +28,7 @@ Route::get('/thanks', function () {
  
 Route::get('/', [ShopController::class, 'index'])->name('index');
 Route::get('/detail/{shop_id}', [ShopController::class, 'detail'])->name('detail');
-Route::get('/change_detail/{shop_id}', [ShopController::class, 'change_detail'])->name('change_detail');
+
 
 Route::get('/area_search', [ShopController::class, 'area_search']);
 Route::get('/name_search', [ShopController::class, 'name_search']);
