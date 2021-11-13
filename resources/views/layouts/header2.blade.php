@@ -219,6 +219,8 @@
     $(function() {
       $('.Toggle').click(function() {
         $('.search').toggle();
+        $('.content').css('background-color', '');
+        $('.content').toggleClass('white');
         $('.header').css('background-color', '');
         $('.header').toggleClass('white');
       });
@@ -322,11 +324,11 @@
           var hide_genre = '.' + 'genre_id' + i; //iは表示させたくないgenreのid、hide_genreに代入
           var show_genre = '.' + 'genre_id' + genre_id; //表示させたいgenre、変数genre_idで紐づけられている、show_genreに代入
           $(hide_genre).hide(); //genre_id+iを持つクラスは表示されない
-          if (i == genre_id) {//iと選択したgenreのiが同じ場合、iに選択したgenreのidは除外される
+          if (i == genre_id) { //iと選択したgenreのiが同じ場合、iに選択したgenreのidは除外される
             continue;
           }
         }
-        $(show_genre).show();//以上の処理により選択したgenreのみ表示される
+        $(show_genre).show(); //以上の処理により選択したgenreのみ表示される
       }
     });
     //名前検索　エリア検索と同様の為省略

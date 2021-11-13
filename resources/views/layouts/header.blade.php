@@ -77,7 +77,6 @@
       z-index: 100;
       background-color: #E6E6E6;
       height: 80px;
-      width: 100%;
     }
 
     /*ボタンのスタイル*/
