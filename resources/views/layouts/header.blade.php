@@ -206,7 +206,7 @@
             @csrf
             <label for="logout" class="logout_text">logout<input type="submit" value="" class="logout" id="logout"></label>
 
-            
+
           </form>
         </li>
       </ul>

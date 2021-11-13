@@ -194,7 +194,7 @@
     });
   });
 </script>
-@section('title',)
+@section('title')
 @if (Auth::check())
 @section('content')
 
