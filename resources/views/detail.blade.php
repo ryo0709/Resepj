@@ -577,7 +577,7 @@
       @foreach( $reviews as $review)
       <!-- {{$updated_at = $review->updated_at}} -->
       <div class="user_review">
-        <p style="margin-bottom:10px;">{{$review->user->name}}</p>
+        <p style="margin-bottom:10px;word-wrap: break-word;">{{$review->user->name}}</p>
         @if($updated_at !==null)<p style="margin-bottom:10px;">{{date("Y/m/d",strtotime($updated_at))}}にレビュー済み</p>@endif
         <div class="rate-form" style="margin-bottom:10px;">
           @if($review->rate === 1)
@@ -597,7 +597,7 @@
           <p class="star">★★★★★</p>
           @endif
         </div><!-- rate-form -->
-        <p style="margin-bottom:20px;">{{$review->coment}}</p>
+        <p style="margin-bottom:20px;word-wrap: break-word;">{{$review->coment}}</p>
       </div>
       <!--user_review" -->
 
