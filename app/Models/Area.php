@@ -16,8 +16,4 @@ class Area extends Model
     {
         return $this->hasMany('App\Models\Shop');
     }
-    // public function getArea()
-    // {
-    //     return 'ID' . $this->id . ':' . $this->area;
-    // }
 }

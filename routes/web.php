@@ -18,14 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [UserController::class, 'index']);
-Route::get('/auth', [UserController::class, 'check']);
-Route::post('/auth', [UserController::class, 'checkUser']);
 Route::get('/mypage', [UserController::class, 'mypage']);
 Route::get('/thanks', function () {
     return view('thanks');
 });
- 
+
 Route::get('/', [ShopController::class, 'index'])->name('index');
 Route::get('/detail/{shop_id}', [ShopController::class, 'detail'])->name('detail');
 
@@ -34,7 +31,6 @@ Route::get('/area_search', [ShopController::class, 'area_search']);
 Route::get('/name_search', [ShopController::class, 'name_search']);
 
 Route::get('/liked', [LikeController::class, 'liked'])->name('liked');
-Route::post('/unlike', [LikeController::class, 'unlike'])->name('unlike');
 
 Route::post('/reservation', [ReservationController::class, 'reservation']);
 Route::post('/reservation_change', [ReservationController::class, 'reservation_change']);

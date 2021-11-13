@@ -25,8 +25,8 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'max:191'],
+            'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
             'password' => ['required', Rules\Password::defaults()],
         ];
     }
@@ -34,10 +34,10 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name.required' => 'お名前を入力してください',
-            'name.max' => 'お名前は255文字以内にして下さい',
+            'name.max' => 'お名前は191文字以内で入力してください',
             'email.required' => 'メールアドレスを入力してください',
             'email.email' => 'メールアドレス形式で入力してください',
-            'email.max' => 'メールアドレス255文字以内で入力してください',
+            'email.max' => 'メールアドレスは191文字以内で入力してください',
             'email.unique' => '既に使われているメールアドレスです',
             'password.required' => 'パスワードを入力してください',
         ];

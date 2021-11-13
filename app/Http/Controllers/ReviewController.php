@@ -3,28 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Review;
-use Illuminate\Http\Request;
-use App\Models\Shop;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Reservation;
 use App\Http\Requests\ReviewRequest;
 
 class ReviewController extends Controller
 {
-    public function review(ReviewRequest $request)
+    public function review(ReviewRequest $request)//レビューを投稿　formrequestでバリデーション->$requestへ
     {
-        $form = $request->all();
-        Review::create($form);
-            return back();
+        $form = $request->all();//inputを全て取得し$formに代入
+        Review::create($form);//クリエイト
+        return back();//戻る
     }
-    public function review_change(ReviewRequest $request)
+    public function review_change(ReviewRequest $request)//レビューを変更　formrequestでバリデーション->$requestへ
     {
-        $review = Review::find($request->id);
-        $user_id = $request->user_id;
-        $shop_id = $request->shop_id;
-        $rate = $request->rate;
-        $coment = $request->coment;
-        $review->shop_id = $shop_id;
+        $review = Review::find($request->id);//該当のreviewからidを取得
+        $user_id = $request->user_id;//user_idを取得
+        $shop_id = $request->shop_id;//shop_idを取得
+        $rate = $request->rate;//rateを取得
+        $coment = $request->coment;//comentを取得
+        $review->shop_id = $shop_id;//各々を$reviewにセットしsave()、戻る
         $review->user_id = $user_id;
         $review->rate = $rate;
         $review->coment = $coment;

@@ -25,7 +25,7 @@ class ReviewRequest extends FormRequest
     {
         return [
             'rate' => 'required',
-            'coment' => 'required',
+            'coment' => ['required', 'string', 'max:191'],
         ];
     }
     public function messages()
@@ -33,6 +33,7 @@ class ReviewRequest extends FormRequest
         return [
             'rate.required' => '評価をお願いします',
             'coment.required' => 'コメントをお願いします',
+            'coment.max' => 'コメントは191文字以内で入力してください',
         ];
     }
 }
