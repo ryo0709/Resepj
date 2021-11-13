@@ -196,8 +196,9 @@
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
+    //ハンバーガーメニュー
     $(function() {
-      $('.Toggle').click(function() {
+      $('.Toggle').click(function() { //画面左上のRese左のアイコンをクリックで以下の処理がされる
         $(this).toggleClass('active');
 
         if ($(this).hasClass('active')) {
@@ -292,9 +293,10 @@
 
   <script src=" https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
-    $('#area').change(function() {
-      var area_id = $('#area').val();
-      $.ajax({
+    //検索機能
+    $('#area').change(function() { //エリア検索　データベースから該当shopをもってくる　inputをid”area”で紐づけ　変更されたら以下の処理
+      var area_id = $('#area').val(); //val()で変更されたidを取得
+      $.ajax({ //ajax通信
           url: '/area_search',
           method: 'get',
           async: true,
@@ -302,29 +304,32 @@
             'area_id': area_id,
           },
         })
-        .done(function(json) {
-          $('body').empty();
-          $('body').append(json)
-        }).fail(function(json) {
+        .done(function(json) { //エリア検索が成功したときの処理
+          $('body').empty(); //bodyのshop空にする
+          $('body').append(json) //該当shopを呼び出しbodyに付加し表示させる
+        }).fail(function(json) { //処理が失敗されるとALERTされる
           alert('ajax失敗');
         });
     });
-    $('#genre').change(function() {
+    $('#genre').change(function() { //ジャンル検索
       var genre_id = $('#genre').val();
-      if (genre_id == 0) {
+      if (genre_id == 0) { //0(Allgenreが選択された場合)
         $('.genre_id1, .genre_id2, .genre_id3, .genre_id4, .genre_id5').show();
-      } else if (genre_id !== 0) {
-        for (var i = 0; i <= 5; i++) {
-          var hide_genre = '.' + 'genre_id' + i;
-          var show_genre = '.' + 'genre_id' + genre_id;
-          $(hide_genre).hide();
-          if (i == genre_id) {
+        //該当shopのクラスに”genre_id”+idとしshopの持つジャンルを紐づけされている
+        //すべてのジャンルが表示される
+      } else if (genre_id !== 0) { //選択したgenreがAllgenre以外の場合
+        for (var i = 0; i <= 5; i++) { //　for文　id1～5まで以下の処理がされる、
+          var hide_genre = '.' + 'genre_id' + i; //iは表示させたくないgenreのid、hide_genreに代入
+          var show_genre = '.' + 'genre_id' + genre_id; //表示させたいgenre、変数genre_idで紐づけられている、show_genreに代入
+          $(hide_genre).hide(); //genre_id+iを持つクラスは表示されない
+          if (i == genre_id) {//iと選択したgenreのiが同じ場合、iに選択したgenreのidは除外される
             continue;
           }
         }
-        $(show_genre).show();
+        $(show_genre).show();//以上の処理により選択したgenreのみ表示される
       }
     });
+    //名前検索　エリア検索と同様の為省略
     $('#name').change(function() {
       var name = $('#name').val();
       $.ajax({

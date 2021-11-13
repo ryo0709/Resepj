@@ -342,16 +342,11 @@
         <p>{{$shop->description}}</p>
       </div>
       <script>
-        $(function() {
+        $(function() {//レスポンシブル768PX以下の時に予約画面の表示、ON、OFFを切り替える場合はToggle()にする
           $('.reservation_toggle').click(function() {
             $('.reservation').show();
           });
         });
-        // $(function() {
-        //   $('.reservation_toggle').click(function() {
-        //     $('.reservation').toggle();
-        //   });
-        // });
       </script>
       <div class="reservation_toggle flexAlignCenter">
         <i class="fas fa-plus" style="margin: 5 5px;"></i>
@@ -430,9 +425,10 @@
                 <p style="color:white;" id="pNum">{{old('num_of_users')}}</p>
                 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                 <script>
-                  $('#date').change(function() {
-                    var date = $('#date').val();
-                    $('#pDate').text(date);
+                  //予約情報をリアルタイムで表示
+                  $('#date').change(function() {//inputにセットしたidで紐づけ、inputが変更されたら以下の処理がされる　※#はid
+                    var date = $('#date').val();//val()で変更されたinputを取得し変数dataに代入
+                    $('#pDate').text(date);//代入された変数を表示させたいP要素にidで紐づけ表示　以下省略
                   });
                   $('#time').change(function() {
                     var time = $('#time').val();
@@ -446,7 +442,6 @@
               </div>
             </div>
           </div>
-
       </div><!-- resavation_wrap -->
       <div class="reservation_btn_wrap" style="border-top:solid 1px #BBB;border-radius:0 0 5px 5px;">
         @if (Auth::check())
@@ -491,7 +486,7 @@
     <!-- {{$start_at = $reservation->start_at}} -->
     @endif
     <script>
-      $(function() {
+      $(function() {//レビュー変更
         $('.review_toggle').click(function() {
           $('.review_change').toggle();
         });
@@ -549,7 +544,6 @@
           @enderror
           <p　style="margin: top 5px; display:block;">評価</p>
         </div>
-
         <div class="rate-form">
           <input id="star5" type="radio" name="rate" value="5" @if(old("rate")==5 )checked @endif>
           <label for="star5">★</label>
@@ -600,15 +594,8 @@
         <p style="margin-bottom:20px;word-wrap: break-word;">{{$review->coment}}</p>
       </div>
       <!--user_review" -->
-
-
       @endforeach
-
-
   </div><!-- review -->
 </div><!-- reviews -->
 <!-- content -->
-
-
-
 @endsection

@@ -166,32 +166,30 @@
   }
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
 <script>
+  //お気に入り登録・削除機能
   $(function() {
-    let like = $('.like-toggle');
-    let likeShopId;
-    let likeUserId;
-    like.on('click', function() {
-      let $this = $(this);
-      likeShopId = $this.data('shop-id');
-      likeUserId = $this.data('user-id');
-      $.ajax({
+    let like = $('.like-toggle'); //変数likeにハートをクリックしたshopのlike-toggleを代入（.はクラスを意味）
+    like.on('click', function() { //ハートアイコンをクリックしたら以下の処理がされる
+      let $this = $(this); //$thisはハートをクリックをしたshop
+      let likeShopId = $this.data('shop-id'); //変数likeShopIdにbladeでセットしたdata()からshop-idを取り出し代入
+      let likeUserId = $this.data('user-id'); //変数UserIdにbladeでセットしたdata()からuser-idを取り出し代入
+      $.ajax({ //ajax通信開始
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          url: '/liked',
-          method: 'get',
-          data: {
+          url: '/liked', //　/likedにアクセス
+          method: 'get', //　設定しているメソッド
+          data: { //下記でshop_idとuser_idを持たせる
             'shop_id': likeShopId,
             'user_id': likeUserId
           },
         })
-        .done(function(data) {
-          $this.toggleClass('liked');
+        .done(function(data) { //処理が成功したらtoggleClass()でクラスの付加又は除去
+          $this.toggleClass('liked'); //likedクラスが付加されていなければ赤されていれば灰色になる仕組み
         })
         .fail(function() {
-          console.log('fail');
+          console.log('fail'); //処理ができない場合failログ
         });
     });
   });
@@ -269,15 +267,17 @@
 <div class="no_heart" style="display:none;">
   <p>お気に入り登録するにはログインをして下さい。</p>
   <p><a href="/login">（ログイン</a>｜
-  <a href="/register">登録</a>）</p>
+    <a href="/register">登録</a>）
+  </p>
 </div>
 <script>
-  $('.heart-btn').on('click', function() {
+  //モーダルウインドウ　ログインしていないユーザーがハートアイコン(お気に入り登録)をクリックした場合に表示
+  $('.heart-btn').on('click', function() {//ハートアイコンをクリックしたら以下の処理がされる
     $(this).toggleClass('active');
-    $('#overlay').fadeIn();
-    $(".no_heart").addClass('active');
+    $('#overlay').fadeIn();//オーバーレイが表示
+    $(".no_heart").addClass('active');//ログイン又は登録が必要であるテキストが表示
     $(".no_heart").fadeIn(500);
-    $('#overlay,#close').click(function() {
+    $('#overlay').click(function() {//テキスト以外をクリックしたらテキスト・オーバーレイが消えます。＊登録を促すため閉じるボタンはなし
       $('#overlay').fadeOut();
       $('.no_heart').removeClass('active');
       $('.no_heart').fadeOut(500);

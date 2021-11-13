@@ -441,6 +441,7 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
+  //インデックス参照
   $(function() {
     let like = $('.like-toggle');
     let likeShopId;
@@ -494,14 +495,11 @@
   </div>
 </div>
 
-
 <div class="content">
   <div class="reservation">
     <?php $i = 1; ?>
     @foreach($reservations as $reservation)
     <!-- {{$start_at = $reservation->start_at}} -->
-
-
     <div class="resevation-detail " id="modal({{$loop->index}})">
       <div class="resevation_header">
         <div class="resevation_header_tit">
@@ -613,10 +611,11 @@
     </div><!-- resevation-detail -->
     @endforeach
     <script>
-      $('.modal').on('click', function() {
+      //予約変更機能
+      $('.modal').on('click', function() { //クリップアイコンをクリックするとモーダルウインドウが表示　モーダルはINDEX参照
         $(this).toggleClass('active');
         $('#overlay').fadeIn();
-        $("#modal" + $(this).attr('data-target')).addClass('active');
+        $("#modal" + $(this).attr('data-target')).addClass('active'); //data-target（インデックス）でidの紐づけ
         $("#modal" + $(this).attr('data-target')).fadeIn(500);
         $('#overlay,#close').click(function() {
           $('#overlay').fadeOut();
@@ -629,7 +628,7 @@
       });
     </script>
     <script>
-      $('.change_date').change(function() {
+      $('.change_date').change(function() { //detailに詳細記載の為省略
         var date = $(this).val();
         $('.pDate').text(date);
       });
