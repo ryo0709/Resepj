@@ -569,11 +569,11 @@
         @enderror
         <textarea name="coment" rows="4" cols="100" placeholder="レビューを入力する">{{ old('coment') }}</textarea>
       </div>
-      <input type="submit" value="レビュー">
+      <input type="submit" value="レビュー" style="margin-bottom:10px;">
       </form>
       <!--action="/review" -->
       @endif
-      @if ($reviews->count()== 0)<p>レビューはまだありません。</p>@else @endif
+      @if ($reviews->count()== 0)<p style="margin-top:10px;">レビューはまだありません。</p>@else @endif
       @foreach( $reviews as $review)
       <!-- {{$updated_at = $review->updated_at}} -->
       <div class="user_review">
