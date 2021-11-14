@@ -145,12 +145,12 @@
 
     .search {
       display: flex;
-      text-align: left;
       background-color: white;
       border-radius: 5px;
       box-shadow: 1px 1px 1px #BBB;
       height: 40px;
       align-items: center;
+      margin-right: 3%;
     }
 
     @media screen and (max-width: 785px) {
