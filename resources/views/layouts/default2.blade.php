@@ -9,7 +9,7 @@
   @else
   <link rel="stylesheet" href="{{ secure_asset('css/reset.css') }}">
   @endif
-  <title>RESE</title>
+  <title>Rese</title>
   <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 

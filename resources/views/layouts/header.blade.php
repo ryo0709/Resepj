@@ -77,6 +77,7 @@
       z-index: 100;
       background-color: #E6E6E6;
       height: 80px;
+      width: 100%;
     }
 
     /*ボタンのスタイル*/
@@ -173,16 +174,16 @@
 
         if ($(this).hasClass('active')) {
           $('.NavMenu').addClass('active');
-          $('.NavMenu').fadeIn(500);
+          $('.NavMenu').fadeIn(1);
         } else {
           $('.NavMenu').removeClass('active');
-          $('.NavMenu').fadeOut(500);
+          $('.NavMenu').fadeOut(1);
         }
       });
 
       $('.navmenu-a').click(function() {
         $('.NavMenu').removeClass('active');
-        $('.NavMenu').fadeOut(1000);
+        $('.NavMenu').fadeOut(1);
         $('.Toggle').removeClass('active');
       });
     });

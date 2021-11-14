@@ -151,15 +151,14 @@
       box-shadow: 1px 1px 1px #BBB;
       height: 40px;
       align-items: center;
-      margin-right: 20px;
     }
 
     @media screen and (max-width: 785px) {
       .search {
-        margin-top: 80px;
+        margin-top: 100px;
         margin-bottom: 20px;
         height: 20px;
-        width: 100%;
+        width: 97.6%;
       }
 
       .header {
@@ -203,10 +202,10 @@
 
         if ($(this).hasClass('active')) {
           $('.NavMenu').addClass('active');
-          $('.NavMenu').fadeIn(500);
+          $('.NavMenu').fadeIn(1);
         } else {
           $('.NavMenu').removeClass('active');
-          $('.NavMenu').fadeOut(500);
+          $('.NavMenu').fadeOut(1);
         }
       });
 
@@ -218,7 +217,7 @@
     });
     $(function() {
       $('.Toggle').click(function() {
-        $('.search').toggle();
+        $('.search').toggle(500);
         $('.content').css('background-color', '');
         $('.content').toggleClass('white');
         $('.header').css('background-color', '');

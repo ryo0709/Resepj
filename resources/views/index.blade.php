@@ -50,7 +50,7 @@
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    padding-top: 80px;
+    padding-top: 100px;
   }
 
   .btn {
