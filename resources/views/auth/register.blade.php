@@ -23,7 +23,7 @@
 
     .register {
         width: 400px;
-        margin: 200px auto;
+        margin: 160px auto;
         display: block;
         background-color: white;
         padding-bottom: 10px;
@@ -154,8 +154,6 @@
 
 　
 
-<!-- Validation Errors -->
-<x-auth-validation-errors class="mb-4" :errors="$errors" />
 <form method="POST" action="{{ route('register') }}">
     @csrf
     <div class="register">
