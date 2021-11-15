@@ -342,7 +342,7 @@
         <p>{{$shop->description}}</p>
       </div>
       <script>
-        $(function() {//レスポンシブル768PX以下の時に予約画面の表示、ON、OFFを切り替える場合はToggle()にする
+        $(function() { //レスポンシブル768PX以下の時に予約画面の表示、ON、OFFを切り替える場合はToggle()にする
           $('.reservation_toggle').click(function() {
             $('.reservation').show();
           });
@@ -426,9 +426,9 @@
                 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                 <script>
                   //予約情報をリアルタイムで表示
-                  $('#date').change(function() {//inputにセットしたidで紐づけ、inputが変更されたら以下の処理がされる　※#はid
-                    var date = $('#date').val();//val()で変更されたinputを取得し変数dataに代入
-                    $('#pDate').text(date);//代入された変数を表示させたいP要素にidで紐づけ表示　以下省略
+                  $('#date').change(function() { //inputにセットしたidで紐づけ、inputが変更されたら以下の処理がされる　※#はid
+                    var date = $('#date').val(); //val()で変更されたinputを取得し変数dataに代入
+                    $('#pDate').text(date); //代入された変数を表示させたいP要素にidで紐づけ表示　以下省略
                   });
                   $('#time').change(function() {
                     var time = $('#time').val();
@@ -477,7 +477,7 @@
     });
   </script>
   <div class="users_review_toggle flexAlignCenter">
-    <i class="fas fa-plus" style="margin: 5 5px;"></i>
+    <i class="fas fa-plus" style="margin:  5px;"></i>
     <p style="display:inline-block;cursor: pointer;">レビューを見る</p>
   </div>
   <div class="review">
@@ -486,7 +486,7 @@
     <!-- {{$start_at = $reservation->start_at}} -->
     @endif
     <script>
-      $(function() {//レビュー変更
+      $(function() { //レビュー変更
         $('.review_toggle').click(function() {
           $('.review_change').toggle();
         });
@@ -495,13 +495,16 @@
     @if ($reservation !==null && $user_review !==null)
     <!-- {{$updated_at = $user_review->updated_at}} -->
     <p style="margin-bottom:10px;">{{date("Y/m/d",strtotime($updated_at))}}にレビュー済み</p>
-    <p class="review_toggle ">レビューを変更する</p>
+    <div class="review_toggle flexAlignCenter">
+      <i class="fas fa-plus" style="margin: 5px;"></i>
+      <p style="display:inline-block;margin-left:5px;">レビューを変更する</p>
+    </div>
     <div class="review_change" style="display:none;">
       <!-- {{$rate = $user_review->rate }} -->
       <form method="post" action="/review_change">
         @csrf
         <div class="user_name ">
-          <p>{{$user->name}}</p>
+          <p style="margin-bottom:10px;">{{$user->name}}</p>
         </div>
         <div class="rate">
           <input name="id" value="{{$user_review->id}}" type="hidden">
